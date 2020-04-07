@@ -14,7 +14,7 @@ public class CameraBehaviour : MonoBehaviour
     public float SmoothFactor = 0.5f;
 
     public float rotateSpeed = 5.0f;
-
+    
     public bool rotate = false;
     // Start is called before the first frame update
     void Start()
@@ -32,15 +32,11 @@ public class CameraBehaviour : MonoBehaviour
         offSet = camTurnAngleX * offSet;
         offSet = camTurnAngleY * offSet;
 
-        if (camTurnAngleY.x < 25)
-        {
-            camTurnAngleY.x = 25;
-        }
-
-
         Vector3 newPos = target.position + offSet;
 
         transform.position = Vector3.Slerp(transform.position, newPos, SmoothFactor);
+
+        transform.Rotate(Mathf.Clamp(camTurnAngleY.x, -20, 20), 0, 0);
 
         if (rotate)
         {

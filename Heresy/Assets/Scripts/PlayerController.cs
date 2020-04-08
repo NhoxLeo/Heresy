@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public float gravity = 10.0f;
-
+    public float groundClamp;
     public float speed;
     public float startSpeed;
     public float turnSpeed;
@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            transform.position = transform.position + new Vector3(0, -0.1f, 0);
+            transform.position = transform.position + new Vector3(0, groundClamp, 0);
+            
             float moveHorizontal = Input.GetAxisRaw("Horizontal");
             float moveVertical = Input.GetAxisRaw("Vertical");
 
@@ -88,12 +89,12 @@ public class PlayerController : MonoBehaviour
 
     void Sprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             speed *= 1.5f;
         }
         
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             speed = startSpeed;
         }

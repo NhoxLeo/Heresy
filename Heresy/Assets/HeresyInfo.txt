@@ -1,0 +1,21 @@
+Updates!!
+---------------------------------------
+
+player moves relative to local rotation
+player can sprint
+player can dash
+player can attack
+
+
+----------------------------------------
+
+INSTRUCTIONS
+mouse move camera and rotates player
+Space - Sprint
+Left Shift- Dash
+WASD - Move
+Left Mouse - Attack
+
+---------------------------------------------------
+character movement complete +
+camera needs more work -

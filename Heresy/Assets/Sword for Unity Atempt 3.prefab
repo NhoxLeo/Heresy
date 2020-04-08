@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4551561353967055479}
   - component: {fileID: 8194402577911905202}
   - component: {fileID: 6161205823570885967}
+  - component: {fileID: 771110363139678934}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
@@ -147,3 +148,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &771110363139678934
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8864806758543565670}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

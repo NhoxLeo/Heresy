@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 865608996228287651}
   - component: {fileID: 1547019067}
   m_Layer: 0
-  m_Name: Body
+  m_Name: PlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 30
+  groundClamp: -0.05
   speed: 0
   startSpeed: 15
   turnSpeed: 20

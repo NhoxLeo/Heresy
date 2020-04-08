@@ -38,6 +38,13 @@ public class CameraBehaviour : MonoBehaviour
 
         transform.Rotate(Mathf.Clamp(camTurnAngleY.x, -20, 20), 0, 0);
 
+        if(transform.position.y <= target.position.y - 2)
+        {
+            
+            Debug.Log("ahhhhhhh");
+            
+        }
+
         if (rotate)
         {
             transform.LookAt(target);

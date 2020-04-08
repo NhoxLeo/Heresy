@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public float groundClamp;
     public float speed;
-
+    public int health = 3;
     public Transform player;
     Rigidbody rb;
     // Start is called before the first frame update
@@ -26,5 +26,18 @@ public class EnemyBehaviour : MonoBehaviour
         Vector3 target = new Vector3(player.position.x, player.position.y, player.position.z);
         Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.deltaTime);
         rb.MovePosition(newPos);
+
+        if(health <= 0)
+        {
+          Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sword"))
+        {
+            health -= 1;
+        }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
+    public bool attacking;
+
     public float gravity = 10.0f;
     public float groundClamp;
     public float speed;
@@ -15,30 +17,44 @@ public class PlayerController : MonoBehaviour
     public bool dashIsCD = false;
     public float dashTimer;
     public float dashCD;
+    public GameObject playerMesh;
 
+    Vector3 movement;
 
+    Animator playerAnim;
     Rigidbody rb;
-    
+
+    Collider blade;
+
     public void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
 
+        playerMesh = GameObject.Find("ganfaul_m_aure (2)");
+
+        rb = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
         speed = startSpeed;
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        PlayerMovement();
+
+        if (!playerAnim.GetBool("Attack"))
+        {
+            PlayerMovement();
+        }   
         
+
     }
 
     public void Update()
     {
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
-        Sprint(); 
-        
-        if(dashIsCD == true)
+        Sprint();
+        Attack();
+        if (dashIsCD == true)
         {
             dashTimer -= Time.deltaTime;
            
@@ -46,43 +62,64 @@ public class PlayerController : MonoBehaviour
             {
                 dashIsCD = false;
             }
+            if(dashTimer <= 0.6)
+            {
+                playerAnim.SetBool("Dash", false);
+                playerMesh.SetActive(true);
+            }            
+            if(dashTimer >= 0.8 && dashTimer <= 0.9)
+            {
+                playerMesh.SetActive(false);
+            }
         
         }
-    
-    }
-
-    void PlayerMovement()
-    {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            transform.position = transform.position + new Vector3(0, groundClamp, 0);
-            
-            float moveHorizontal = Input.GetAxisRaw("Horizontal");
-            float moveVertical = Input.GetAxisRaw("Vertical");
-
-            Vector3 movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
-
-            movement = Camera.main.transform.TransformDirection(movement);
-            movement.y = 0f;
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
-            
-
            
-            transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);        
-                      
             if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0)
             {
                 rb.AddForce(movement * dashSpeed, ForceMode.Impulse);
                 dashTimer = dashCD;
                 dashIsCD = true;
-
+                playerAnim.SetBool("Dash", true);
+                //playerMesh.SetActive(false);
             }
+    }
+
+    public void PlayerMovement()
+    {
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+
+
+            transform.position = transform.position + new Vector3(0, groundClamp, 0);
+
+            float moveHorizontal = Input.GetAxisRaw("Horizontal");
+            float moveVertical = Input.GetAxisRaw("Vertical");
+
+            movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
+
+            movement = Camera.main.transform.TransformDirection(movement);
+            movement.y = 0f;
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
 
 
 
-        }        
-        
+            transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+            playerAnim.ResetTrigger("Idle");
+            playerAnim.SetTrigger("Moving");
+
+
+
+
+        }            
+        else
+            {
+
+                playerAnim.ResetTrigger("Moving");
+                playerAnim.SetTrigger("Idle");
+            }
+                
+
 
     }
 
@@ -92,16 +129,43 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             speed *= 1.5f;
+            playerAnim.SetBool("Sprinting", true);
         }
         
         if (Input.GetKeyUp(KeyCode.Space))
         {
             speed = startSpeed;
+            playerAnim.SetBool("Sprinting", false);
         }
-    }    
-
-
+    }   
     
+    public void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            
+            playerAnim.SetBool("Attack",true);
+            
+            playerAnim.ResetTrigger("Moving");
+            playerAnim.ResetTrigger("Idle");
+            
+        }
+
+    }
+
+    public void AttackOnSpot()
+    {
+        playerAnim.SetBool("Attack", false);
+    }
+    public void attackColliderOn()
+    {
+        blade.enabled = true;
+    }
+    public void attackColliderOff()
+    {
+        blade.enabled = false;
+    }
+
 }
 
 

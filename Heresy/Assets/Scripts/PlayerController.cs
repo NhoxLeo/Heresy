@@ -5,6 +5,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
+    
+    public Material glowMaterial;
+    public Material skinMaterial;
     public bool attacking;
 
     public float gravity = 10.0f;
@@ -57,19 +60,47 @@ public class PlayerController : MonoBehaviour
         if (dashIsCD == true)
         {
             dashTimer -= Time.deltaTime;
-           
+                       if(dashTimer <= 0.6)
+            {                
+                SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+                foreach (SkinnedMeshRenderer skin in skinMeshList)
+                {
+
+                    var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                    materials[0] = skinMaterial;
+                    materials[1] = glowMaterial;
+                    GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+                }
+                playerAnim.SetBool("Dash", false);
+                playerMesh.SetActive(true);
+            } 
             if (dashTimer <= 0)
             {
                 dashIsCD = false;
+
+                SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+                foreach (SkinnedMeshRenderer skin in skinMeshList)
+                {
+
+                    var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                    materials[0] = skinMaterial;
+                    materials[1] = skinMaterial;
+                    GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+                }
+
             }
-            if(dashTimer <= 0.6)
-            {
-                playerAnim.SetBool("Dash", false);
-                playerMesh.SetActive(true);
-            }            
+           
             if(dashTimer >= 0.8 && dashTimer <= 0.9)
-            {
+            {                
+                
+
                 playerMesh.SetActive(false);
+
+
             }
         
         }
@@ -80,7 +111,18 @@ public class PlayerController : MonoBehaviour
                 dashTimer = dashCD;
                 dashIsCD = true;
                 playerAnim.SetBool("Dash", true);
-                //playerMesh.SetActive(false);
+
+               SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+               foreach (SkinnedMeshRenderer skin in skinMeshList)
+               {
+
+                     var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                     materials[0] = glowMaterial;
+                     materials[1] = glowMaterial;
+                     GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+                     
+               }
             }
     }
 

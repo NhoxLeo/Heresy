@@ -185,20 +185,29 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+             
             
-            playerAnim.SetBool("Attack",true);
+            playerAnim.SetBool("Attack", true);
+           
+            playerAnim.SetBool("Attack2", true);
+
             
+
             playerAnim.ResetTrigger("Moving");
             playerAnim.ResetTrigger("Idle");
             
         }
 
+
+
     }
 
-    public void AttackOnSpot()
+    public void Attack1()
     {
         playerAnim.SetBool("Attack", false);
-    }
+
+
+    }    
     public void attackColliderOn()
     {
         blade.enabled = true;

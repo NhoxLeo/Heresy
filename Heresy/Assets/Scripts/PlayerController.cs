@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
 
-        playerMesh = GameObject.Find("ganfaul_m_aure (2)");
+        playerMesh = GameObject.Find("Mesh");
 
         rb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (dashIsCD == true)
         {
             dashTimer -= Time.deltaTime;
-                       if(dashTimer <= 0.6)
+            if(dashTimer <= 0.6)
             {                
                 SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -73,8 +73,10 @@ public class PlayerController : MonoBehaviour
                     GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
 
                 }
-                playerAnim.SetBool("Dash", false);
                 playerMesh.SetActive(true);
+                
+                playerAnim.SetBool("Dash", false);
+                
             } 
             if (dashTimer <= 0)
             {

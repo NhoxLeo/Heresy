@@ -9,26 +9,28 @@ public class PlayerController : MonoBehaviour
     public Material glowMaterial;
     public Material skinMaterial;
     public bool attacking;
-
+    public bool dashStab = false;
     public float gravity = 10.0f;
     public float groundClamp;
     public float speed;
     public float startSpeed;
     public float turnSpeed;
-    
+    public float beamSlashT;
+
     public float dashSpeed;
     public bool dashIsCD = false;
     public float dashTimer;
     public float dashCD;
+    
     public GameObject playerMesh;
-
+    public GameObject beam;
     Vector3 movement;
 
     Animator playerAnim;
     Rigidbody rb;
 
     Collider blade;
-
+    public Transform enemy;
     public void Start()
     {
         blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
@@ -43,7 +45,7 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
 
-        if (!playerAnim.GetBool("Attack") && (!playerAnim.GetBool("Attack2"))&& (!playerAnim.GetBool("Attack3")) && (!playerAnim.GetBool("Attack4")) && (!playerAnim.GetBool("Attack5")))
+        if (!playerAnim.GetBool("Attack") && (!playerAnim.GetBool("Attack2"))&& (!playerAnim.GetBool("Attack3")) && (!playerAnim.GetBool("Attack4")) && !playerAnim.GetBool("Attack5") && (!playerAnim.GetBool("Power Up")))
         {
             PlayerMovement();
         }   
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
-
+        
         Sprint();
         Attack();
         if (dashIsCD == true)
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
                     var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
                     materials[0] = skinMaterial;
-                    materials[1] = glowMaterial;
+                    materials[1] = skinMaterial;
                     GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
 
                 }
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
                     var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
                     materials[0] = skinMaterial;
-                    materials[1] = skinMaterial;
+                    materials[1] = glowMaterial;
                     GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
 
                 }
@@ -98,13 +100,25 @@ public class PlayerController : MonoBehaviour
            
             if(dashTimer >= 0.8 && dashTimer <= 0.9)
             {                
-                
-
                 playerMesh.SetActive(false);
 
+            }                      
+            
+            
+            if(dashTimer <=0.6)
+            {
+                playerAnim.SetBool("Dash", false);
+               
+            }
+            if (dashTimer >= 0.8 && dashTimer <= 1 && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                playerAnim.SetBool("Dash", true);
 
             }
-        
+
+
+
+
         }
            
             if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0)
@@ -112,7 +126,7 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(movement * dashSpeed, ForceMode.Impulse);
                 dashTimer = dashCD;
                 dashIsCD = true;
-                playerAnim.SetBool("Dash", true);
+                
 
                SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -125,43 +139,71 @@ public class PlayerController : MonoBehaviour
                      GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
                      
                }
+            }       
+        
+        if (Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Moving")|| Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle")) 
+        { 
+              playerAnim.SetBool("Power Up", true);
+
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
+
+            if (enemy)
+            {
+                Debug.Log(enemy.name);
+                transform.LookAt(enemy);
             }
+        }
     }
 
     public void PlayerMovement()
-    {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
+    { 
+        
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
 
 
-            transform.position = transform.position + new Vector3(0, groundClamp, 0);
-
-            float moveHorizontal = Input.GetAxisRaw("Horizontal");
-            float moveVertical = Input.GetAxisRaw("Vertical");
-
-            movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
-
-            movement = Camera.main.transform.TransformDirection(movement);
-            movement.y = 0f;
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
+                transform.position = transform.position + new Vector3(0, groundClamp, 0);
 
 
+                float moveHorizontal = Input.GetAxisRaw("Horizontal");
+                float moveVertical = Input.GetAxisRaw("Vertical");
 
-            transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+                movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
+
+                movement = Camera.main.transform.TransformDirection(movement);
+                movement.y = 0f;
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
+
+
+
+                transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
+
+                if (enemy)
+                {
+                    Debug.Log(enemy.name);
+                    transform.LookAt(enemy.transform);
+                }
+            }
             playerAnim.ResetTrigger("Idle");
-            playerAnim.SetTrigger("Moving");
+                playerAnim.SetTrigger("Moving");
 
-
-
-
-        }            
-        else
+            }
+            else
             {
 
                 playerAnim.ResetTrigger("Moving");
                 playerAnim.SetTrigger("Idle");
             }
+        
                 
 
 
@@ -191,10 +233,9 @@ public class PlayerController : MonoBehaviour
             playerAnim.ResetTrigger("Moving");
             playerAnim.ResetTrigger("Idle");           
         }
-
-
-
     }
+
+
 
     public void Attack1()
     {
@@ -237,6 +278,14 @@ public class PlayerController : MonoBehaviour
     {
         blade.enabled = false;
     }
+
+    public void beamSpawn()
+    {
+        
+        Instantiate(beam,transform.position + (transform.forward * 2), transform.rotation);
+        playerAnim.SetBool("Power Up", false);
+    }
+
 
 }
 

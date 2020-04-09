@@ -7,6 +7,10 @@ public class CameraBehaviour : MonoBehaviour
 
     public Transform target;
 
+    public GameObject[] enemies;
+    
+    public Collider enemyDetector;
+
     public Vector3 offSet;
 
     public Transform pivot;
@@ -14,11 +18,16 @@ public class CameraBehaviour : MonoBehaviour
     public float SmoothFactor = 0.5f;
 
     public float rotateSpeed = 5.0f;
-    
+
     public bool rotate = false;
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+
+        target = GameObject.Find("PlayerTarget").transform;
+
         offSet = transform.position - target.position;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -38,18 +47,37 @@ public class CameraBehaviour : MonoBehaviour
 
         transform.Rotate(Mathf.Clamp(camTurnAngleY.x, -20, 20), 0, 0);
 
-        if(transform.position.y <= target.position.y - 2)
+        if (transform.position.y <= target.position.y - 2)
         {
-            
+
             Debug.Log("ahhhhhhh");
-            
+
         }
 
         if (rotate)
         {
             transform.LookAt(target);
         }
-        
+
+
 
     }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        enemies = FindObjectsOfType(typeof(GameObject)) as GameObject[]; //will return an array of all GameObjects in the scene
+        collider = enemyDetector;
+        foreach (GameObject go in enemies)
+        {
+            if (go.layer == 8 && collider.gameObject)
+            {
+
+                transform.LookAt(go.transform);
+
+            }
+
+        }
+    } 
 }
+    
+

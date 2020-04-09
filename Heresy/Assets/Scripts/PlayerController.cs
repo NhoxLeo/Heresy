@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
 
-        if (!playerAnim.GetBool("Attack") && (!playerAnim.GetBool("Attack2")))
+        if (!playerAnim.GetBool("Attack") && (!playerAnim.GetBool("Attack2"))&& (!playerAnim.GetBool("Attack3")) && (!playerAnim.GetBool("Attack4")) && (!playerAnim.GetBool("Attack5")))
         {
             PlayerMovement();
         }   
@@ -185,9 +185,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-           // playerAnim.SetBool("Attack",true);
-           
-            //playerAnim.SetBool("Attack2", true);
+
             playerAnim.ResetTrigger("Moving");
             playerAnim.ResetTrigger("Idle");           
         }
@@ -200,11 +198,6 @@ public class PlayerController : MonoBehaviour
     {
         playerAnim.SetBool("Attack", false);
 
-        
-        
-       
-        
-
     }   
     
     public void Attack2()
@@ -212,7 +205,28 @@ public class PlayerController : MonoBehaviour
         
         playerAnim.SetBool("Attack2", false);
 
+    }    
+    
+    public void Attack3()
+    {
+        
+        playerAnim.SetBool("Attack3", false);
+
+    }    
+    public void Attack4()
+    {
+        
+        playerAnim.SetBool("Attack4", false);
+
+    }    
+    public void Attack5()
+    {
+        
+        playerAnim.SetBool("Attack5", false);
+
     }
+    
+    
     public void attackColliderOn()
     {
         blade.enabled = true;

@@ -1,51 +1,61 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 
 public class PlayerController : MonoBehaviour
 {
+    Animator animator;
+    Rigidbody rb;
 
+    Vector3 movement;
+    Collider blade;
     
     public Material glowMaterial;
     public Material skinMaterial;
-    public bool attacking;
-    public bool dashStab = false;
-    public float gravity = 10.0f;
-    public float groundClamp;
-    public float speed;
-    public float startSpeed;
-    public float turnSpeed;
-    public float beamSlashT;
-
-    public float dashSpeed;
-    public bool dashIsCD = false;
-    public float dashTimer;
-    public float dashCD;
     
     public GameObject playerMesh;
     public GameObject beam;
-    Vector3 movement;
+    
+    public bool PhaseIsCD = false;
+    
+    public float startRunSpeed;
+    public float turnSpeed;
+    public float dashSpeed;
 
-    Animator playerAnim;
-    Rigidbody rb;
+    
+    private float phaseCDTimer;
+    public float phaseDashCDTime;
+    public float phaseSlashCDTime;
+    
+    public float phaseInvis = 0.8f;
+    public float endPhaseInvis = 0.6f;
 
-    Collider blade;
+    private float gravity = 30.0f;
+    private float groundClamp = -0.05f;
+    private float speed;
+
     public Transform enemy;
     public void Start()
     {
-        blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
+        
 
+        //Gets the collider on the Blade
+        blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
+        //Gets the Mesh on the Player
         playerMesh = GameObject.Find("Mesh");
 
         rb = GetComponent<Rigidbody>();
-        playerAnim = GetComponent<Animator>();
-        speed = startSpeed;
+        animator = GetComponent<Animator>();
+        
+        //Makes the Players speed equal the set speed
+        speed = startRunSpeed;
+
+
     }
 
     public void FixedUpdate()
     {
-
-        if (!playerAnim.GetBool("Attack") && (!playerAnim.GetBool("Attack2"))&& (!playerAnim.GetBool("Attack3")) && (!playerAnim.GetBool("Attack4")) && !playerAnim.GetBool("Attack5") && (!playerAnim.GetBool("Power Up")))
+        //If the player isn't attacking they can move
+        if (!animator.GetBool("Attack") && (!animator.GetBool("Attack2"))&& (!animator.GetBool("Attack3")) && (!animator.GetBool("Attack4")) && (!animator.GetBool("Attack5")) && (!animator.GetBool ("Power Up")) && (!animator.GetBool("Dash")))
         {
             PlayerMovement();
         }   
@@ -55,154 +65,75 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+        //Add self created gravity
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
         
         Sprint();
         Attack();
-        if (dashIsCD == true)
-        {
-            dashTimer -= Time.deltaTime;
-            if(dashTimer <= 0.6)
-            {                
-                SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-                foreach (SkinnedMeshRenderer skin in skinMeshList)
-                {
-
-                    var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
-                    materials[0] = skinMaterial;
-                    materials[1] = skinMaterial;
-                    GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
-
-                }
-                playerMesh.SetActive(true);
-                
-                playerAnim.SetBool("Dash", false);
-                
-            } 
-            if (dashTimer <= 0)
-            {
-                dashIsCD = false;
-
-                SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-                foreach (SkinnedMeshRenderer skin in skinMeshList)
-                {
-
-                    var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
-                    materials[0] = skinMaterial;
-                    materials[1] = glowMaterial;
-                    GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
-
-                }
-
-            }
-           
-            if(dashTimer >= 0.8 && dashTimer <= 0.9)
-            {                
-                playerMesh.SetActive(false);
-
-            }                      
-            
-            
-            if(dashTimer <=0.6)
-            {
-                playerAnim.SetBool("Dash", false);
-               
-            }
-            if (dashTimer >= 0.8 && dashTimer <= 1 && Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                playerAnim.SetBool("Dash", true);
-
-            }
-
-
-
-
-        }
-           
-            if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0)
-            {
-                rb.AddForce(movement * dashSpeed, ForceMode.Impulse);
-                dashTimer = dashCD;
-                dashIsCD = true;
-                
-
-               SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-               foreach (SkinnedMeshRenderer skin in skinMeshList)
-               {
-
-                     var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
-                     materials[0] = glowMaterial;
-                     materials[1] = glowMaterial;
-                     GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
-                     
-               }
-            }       
+        PhaseAttack();
+        PhaseDash();
+       
+        //if Phase is on CD
+        if (PhaseIsCD == true)
+        {   
+            //Dash CoolDown Satrts
+            phaseCDTimer -= Time.deltaTime;
+        }            
         
-        if (Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Moving")|| Input.GetKeyDown(KeyCode.Mouse1) && playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle")) 
-        { 
-              playerAnim.SetBool("Power Up", true);
-
-        }
-
-        if (Input.GetKey(KeyCode.E))
+        //if Phase CD has ended
+        if (phaseCDTimer <= 0)
         {
-            enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
+            //set CoolDown to false
+            PhaseIsCD = false;
 
-            if (enemy)
+            SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            foreach (SkinnedMeshRenderer skin in skinMeshList)
             {
-                Debug.Log(enemy.name);
-                transform.LookAt(enemy);
+                //Set player skin back to glowing
+                var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                materials[0] = skinMaterial;
+                materials[1] = glowMaterial;
+                GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
             }
+
         }
+        
     }
 
     public void PlayerMovement()
-    { 
-        
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            {
+    {
+
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
 
 
-                transform.position = transform.position + new Vector3(0, groundClamp, 0);
+            transform.position = transform.position + new Vector3(0, groundClamp, 0);
 
 
-                float moveHorizontal = Input.GetAxisRaw("Horizontal");
-                float moveVertical = Input.GetAxisRaw("Vertical");
+            float moveHorizontal = Input.GetAxisRaw("Horizontal");
+            float moveVertical = Input.GetAxisRaw("Vertical");
 
-                movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
+            movement = new Vector3(moveHorizontal, -0.0f, moveVertical);
 
-                movement = Camera.main.transform.TransformDirection(movement);
-                movement.y = 0f;
+            movement = Camera.main.transform.TransformDirection(movement);
+            movement.y = 0f;
 
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
-
-
-
-                transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
-
-                if (enemy)
-                {
-                    Debug.Log(enemy.name);
-                    transform.LookAt(enemy.transform);
-                }
-            }
-            playerAnim.ResetTrigger("Idle");
-                playerAnim.SetTrigger("Moving");
-
-            }
-            else
-            {
-
-                playerAnim.ResetTrigger("Moving");
-                playerAnim.SetTrigger("Idle");
-            }
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movement), Time.deltaTime * turnSpeed);
+           
+            transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+            
+            //if moving play move animation
+            animator.ResetTrigger("Idle");
+            animator.SetTrigger("Moving");
+        }
+        else
+        {
+            //if not moving play idle animation
+            animator.ResetTrigger("Moving");
+            animator.SetTrigger("Idle");
+        }
         
                 
 
@@ -215,77 +146,170 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             speed *= 1.5f;
-            playerAnim.SetBool("Sprinting", true);
+            animator.SetBool("Sprinting", true);
         }
         
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            speed = startSpeed;
-            playerAnim.SetBool("Sprinting", false);
+            speed = startRunSpeed;
+            animator.SetBool("Sprinting", false);
         }
     }   
     
     public void Attack()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
+        {   
+            enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
-            playerAnim.ResetTrigger("Moving");
-            playerAnim.ResetTrigger("Idle");           
+            if (enemy)
+            {
+                Debug.Log(enemy.name);
+                transform.LookAt(enemy);
+            }
+            animator.ResetTrigger("Moving");
+            animator.ResetTrigger("Idle");           
+        }
+    }
+
+    public void PhaseAttack()
+    {
+        if (PhaseIsCD == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1) && animator.GetCurrentAnimatorStateInfo(0).IsName("Moving") || Input.GetKeyDown(KeyCode.Mouse1) && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                animator.SetBool("Power Up", true);
+
+            }
+
+        }
+
+    }    
+    public void PhaseDash()
+    {
+        //if dash button  is pressed when no cooldown
+        if (Input.GetKeyDown(KeyCode.LeftShift) && PhaseIsCD == false)
+        {
+            //dash force
+            rb.AddForce(movement * dashSpeed, ForceMode.Impulse);
+            //dash cooldown timer sets to Phase timer
+            phaseCDTimer = phaseDashCDTime;
+            //Phase goes on cooldown  
+            PhaseIsCD = true;
+
+
+            SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            foreach (SkinnedMeshRenderer skin in skinMeshList)
+            {
+                //Set skin to Phasing
+                var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                materials[0] = glowMaterial;
+                materials[1] = glowMaterial;
+                GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+            }
+        }
+
+        if (phaseCDTimer <= endPhaseInvis)
+        {
+            SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            foreach (SkinnedMeshRenderer skin in skinMeshList)
+            {
+                //Changes skin to standard, no glow
+                var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+                materials[0] = skinMaterial;
+                materials[1] = skinMaterial;
+                GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+            }
+
+            // turns player mesh on
+            playerMesh.SetActive(true);
+            //sets animation to false
+            animator.SetBool("Dash", false);
+
+        }             
+        
+        if(phaseCDTimer >= phaseInvis && phaseCDTimer <= 0.9) 
+        {                
+            playerMesh.SetActive(false);
+
+        }
+        if (phaseCDTimer >= phaseInvis && phaseCDTimer <= phaseDashCDTime && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            animator.SetBool("Dash", true);
+
         }
     }
 
 
-
-    public void Attack1()
-    {
-        playerAnim.SetBool("Attack", false);
-
-    }   
-    
-    public void Attack2()
-    {
-        
-        playerAnim.SetBool("Attack2", false);
-
-    }    
-    
-    public void Attack3()
-    {
-        
-        playerAnim.SetBool("Attack3", false);
-
-    }    
-    public void Attack4()
-    {
-        
-        playerAnim.SetBool("Attack4", false);
-
-    }    
-    public void Attack5()
-    {
-        
-        playerAnim.SetBool("Attack5", false);
-
-    }
     
     
-    public void attackColliderOn()
+    public void AttackColliderOn()
     {
         blade.enabled = true;
     }
-    public void attackColliderOff()
+    public void AttackColliderOff()
     {
         blade.enabled = false;
     }
 
     public void beamSpawn()
-    {
-        
+    {  
         Instantiate(beam,transform.position + (transform.forward * 2), transform.rotation);
-        playerAnim.SetBool("Power Up", false);
-    }
+        
+        animator.SetBool("Power Up", false);                
+        
+        SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
+        foreach (SkinnedMeshRenderer skin in skinMeshList)
+        {
+            //Changes skin to standard, no glow
+            var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+            materials[0] = skinMaterial;
+            materials[1] = skinMaterial;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+        }
+    }
+    public void Attack1()
+    {
+        animator.SetBool("Attack", false);
+    }   
+    public void Attack2()
+    {
+        animator.SetBool("Attack2", false);
+    }       
+    public void Attack3()
+    {
+        animator.SetBool("Attack3", false);
+    }    
+    public void Attack4()
+    {
+        animator.SetBool("Attack4", false);
+    }    
+    public void Attack5()
+    {
+        animator.SetBool("Attack5", false);
+    }
+    public void StartPhaseAttack()
+    {
+        phaseCDTimer = phaseSlashCDTime;
+        PhaseIsCD = true;
+        SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (SkinnedMeshRenderer skin in skinMeshList)
+        {
+            //Set skin to Phasing
+            var materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+            materials[0] = glowMaterial;
+            materials[1] = glowMaterial;
+            GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
+
+        }
+    }    
 
 }
 

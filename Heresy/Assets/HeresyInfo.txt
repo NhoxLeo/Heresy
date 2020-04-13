@@ -17,5 +17,9 @@ WASD - Move
 Left Mouse - Attack
 
 ---------------------------------------------------
+- = needs to be done.....+ = done
+
 character movement complete +
-camera needs more work -
+camera needs more work and lock on -
+Create a phase timer that works with dash and special -
+auto target to be changed from e to at the begining of the attack -

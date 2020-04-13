@@ -7,7 +7,7 @@ public class EnemyDetection : MonoBehaviour
     public static List<Transform> enemies = new List<Transform>();
 
     public Transform enemy;
-    
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +40,7 @@ public class EnemyDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = player.transform.position;
 
         if (Input.GetKeyDown(KeyCode.E)) 
         {

@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
     public GameObject beam;
     
     public bool PhaseIsCD = false;
-    
+    private bool phaseAttackNoInvis = false;
+    public static bool lockedOn = false;
+
     public float startRunSpeed;
     public float turnSpeed;
     public float dashSpeed;
@@ -25,7 +27,8 @@ public class PlayerController : MonoBehaviour
     private float phaseCDTimer;
     public float phaseDashCDTime;
     public float phaseSlashCDTime;
-    
+    public float homingSpeed;
+
     public float phaseInvis = 0.8f;
     public float endPhaseInvis = 0.6f;
 
@@ -85,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             //set CoolDown to false
             PhaseIsCD = false;
-
+            phaseAttackNoInvis = false;
             SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
             foreach (SkinnedMeshRenderer skin in skinMeshList)
@@ -158,7 +161,7 @@ public class PlayerController : MonoBehaviour
     
     public void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !animator.GetBool("Dash"))
         {   
             enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
@@ -166,10 +169,35 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log(enemy.name);
                 transform.LookAt(enemy);
+                
+
             }
             animator.ResetTrigger("Moving");
             animator.ResetTrigger("Idle");           
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            lockedOn = !lockedOn;
+    
+        }            
+        if (lockedOn == true)
+            {
+                enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
+
+                if (enemy)
+                {
+
+                    Debug.Log(enemy.name);
+                    Camera.main.transform.LookAt(enemy);
+
+
+                }
+            else
+            {
+                lockedOn = false;
+            }
+            }
     }
 
     public void PhaseAttack()
@@ -188,7 +216,7 @@ public class PlayerController : MonoBehaviour
     public void PhaseDash()
     {
         //if dash button  is pressed when no cooldown
-        if (Input.GetKeyDown(KeyCode.LeftShift) && PhaseIsCD == false)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && PhaseIsCD == false && !animator.GetBool("Power Up") && animator.GetCurrentAnimatorStateInfo(0).IsName("Moving") || Input.GetKeyDown(KeyCode.LeftShift) && PhaseIsCD == false && !animator.GetBool("Power Up") && animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
         {
             //dash force
             rb.AddForce(movement * dashSpeed, ForceMode.Impulse);
@@ -227,17 +255,16 @@ public class PlayerController : MonoBehaviour
 
             // turns player mesh on
             playerMesh.SetActive(true);
-            //sets animation to false
-            animator.SetBool("Dash", false);
+
 
         }             
         
-        if(phaseCDTimer >= phaseInvis && phaseCDTimer <= 0.9) 
+        if (phaseCDTimer >= phaseInvis && phaseCDTimer <= 0.9 && phaseAttackNoInvis == false) 
         {                
             playerMesh.SetActive(false);
 
         }
-        if (phaseCDTimer >= phaseInvis && phaseCDTimer <= phaseDashCDTime && Input.GetKeyDown(KeyCode.Mouse0))
+        if (phaseCDTimer >= phaseInvis && phaseCDTimer <= phaseDashCDTime && Input.GetKeyDown(KeyCode.Mouse0) && animator.GetCurrentAnimatorStateInfo(0).IsName("Moving"))
         {
             animator.SetBool("Dash", true);
 
@@ -296,8 +323,10 @@ public class PlayerController : MonoBehaviour
     }
     public void StartPhaseAttack()
     {
+
         phaseCDTimer = phaseSlashCDTime;
         PhaseIsCD = true;
+        phaseAttackNoInvis = true;
         SkinnedMeshRenderer[] skinMeshList = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 
         foreach (SkinnedMeshRenderer skin in skinMeshList)
@@ -309,7 +338,12 @@ public class PlayerController : MonoBehaviour
             GetComponentInChildren<SkinnedMeshRenderer>().materials = materials;
 
         }
-    }    
+    }  
+    
+    public void EndDashAnimation()
+    {
+        animator.SetBool("Dash", false);
+    }
 
 }
 

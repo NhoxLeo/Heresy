@@ -794,8 +794,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1541347591}
-  enemies: []
-  enemyDetector: {fileID: 2060209108}
   offSet: {x: 0, y: 1.5, z: -7}
   pivot: {fileID: 1225165321}
   SmoothFactor: 0.11
@@ -2022,12 +2020,6 @@ Transform:
   m_Father: {fileID: 223364698}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -11.651001, y: 0, z: 0}
---- !u!135 &2060209108 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 2060209108, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2297715508289636564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2083077314
 GameObject:
   m_ObjectHideFlags: 0

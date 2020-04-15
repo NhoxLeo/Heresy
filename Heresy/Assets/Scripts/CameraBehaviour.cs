@@ -7,10 +7,6 @@ public class CameraBehaviour : MonoBehaviour
 
     public Transform target;
 
-    public GameObject[] enemies;
-    
-    public Collider enemyDetector;
-
     public Vector3 offSet;
 
     public Transform pivot;
@@ -23,8 +19,6 @@ public class CameraBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
 
         target = GameObject.Find("PlayerTarget").transform;
 
@@ -33,6 +27,11 @@ public class CameraBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+
+    }
+
     void FixedUpdate()
     {
         Quaternion camTurnAngleX = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotateSpeed, Vector3.up);
@@ -53,31 +52,21 @@ public class CameraBehaviour : MonoBehaviour
             Debug.Log("ahhhhhhh");
 
         }
-
+           
         if (rotate)
-        {
-            transform.LookAt(target);
-        }
-
-
-
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        enemies = FindObjectsOfType(typeof(GameObject)) as GameObject[]; //will return an array of all GameObjects in the scene
-        collider = enemyDetector;
-        foreach (GameObject go in enemies)
-        {
-            if (go.layer == 8 && collider.gameObject)
             {
-
-                transform.LookAt(go.transform);
+                transform.LookAt(target);
 
             }
 
+        if(PlayerController.lockedOn == true)
+        {
+            
         }
-    } 
+
+    }
+
+
 }
     
 

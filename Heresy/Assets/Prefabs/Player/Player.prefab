@@ -59,8 +59,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060209106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.506}
-  m_LocalScale: {x: 14.159403, y: 14.159403, z: 14.159403}
+  m_LocalPosition: {x: 0, y: 0, z: 0.22}
+  m_LocalScale: {x: 7.891067, y: 7.891067, z: 7.891067}
   m_Children: []
   m_Father: {fileID: 550180094581675268}
   m_RootOrder: 2
@@ -326,6 +326,7 @@ MonoBehaviour:
   dashSpeed: 25
   phaseDashCDTime: 1
   phaseSlashCDTime: 6
+  homingSpeed: 10
   phaseInvis: 0.8
   endPhaseInvis: 0.5
   enemy: {fileID: 0}

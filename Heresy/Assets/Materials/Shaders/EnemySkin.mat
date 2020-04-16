@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: EnemySkin
+  m_Shader: {fileID: -6465566751694194690, guid: 9f91d9caf5a158f49b711739ee18b047,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_3D6E13D4: 10
+    - Vector1_734CCDCC: 1
+    - Vector1_99401D00: 1
+    - Vector1_BF8173F2: 0
+    - Vector1_C59214C7: 0.01
+    - Vector1_D158845B: 0
+    - Vector1_EC13D6B2: 0.5
+    - _Cull: 2
+    - _Cutoff: 0.333
+    - _WindQuality: 0
+    m_Colors:
+    - Color_3798101A: {r: 1.9707595, g: 1.8396676, b: 1.589622, a: 0}
+    - Color_60CD6E8: {r: 2.140731, g: 1.5084945, b: 0.35493988, a: 0}
+    - Color_C58F67B: {r: 0.6981132, g: 0.48672312, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}

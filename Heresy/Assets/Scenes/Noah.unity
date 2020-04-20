@@ -1160,6 +1160,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8799289567515268049, guid: 9887a150b9651ff4982dc39ca3aa3a01,
+        type: 3}
+      propertyPath: m_Name
+      value: Baal
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9887a150b9651ff4982dc39ca3aa3a01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1233,7 +1238,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 9887a150b9651ff4982dc39ca3aa3a01,
         type: 3}
       propertyPath: m_Name
-      value: warrok_w_kurniawan
+      value: Baal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9887a150b9651ff4982dc39ca3aa3a01, type: 3}

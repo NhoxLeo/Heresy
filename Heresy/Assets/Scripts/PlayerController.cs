@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public float phaseInvis = 0.8f;
     public float endPhaseInvis = 0.6f;
+    public float attackrotspeed = 1f;
 
     private float gravity = 30.0f;
     private float groundClamp = -0.05f;
@@ -161,6 +162,15 @@ public class PlayerController : MonoBehaviour
     
     public void Attack()
     {
+
+
+        if (animator.GetBool("Attack") == true)
+        {
+            Vector3 direction = enemy.transform.position - rb.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, rotation, attackrotspeed * Time.deltaTime);
+        }
+        
         if (Input.GetKeyDown(KeyCode.Mouse0) && !animator.GetBool("Dash"))
         {   
             enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
@@ -168,10 +178,9 @@ public class PlayerController : MonoBehaviour
             if (enemy)
             {
                 Debug.Log(enemy.name);
-                transform.LookAt(enemy);
-                
 
             }
+
             animator.ResetTrigger("Moving");
             animator.ResetTrigger("Idle");           
         }

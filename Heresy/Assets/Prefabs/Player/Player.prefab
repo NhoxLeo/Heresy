@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 5877188948498696648}
   m_Layer: 0
   m_Name: PlayerBody
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,6 +329,7 @@ MonoBehaviour:
   homingSpeed: 10
   phaseInvis: 0.8
   endPhaseInvis: 0.5
+  attackrotspeed: 5
   enemy: {fileID: 0}
 --- !u!95 &5877188948498696648
 Animator:

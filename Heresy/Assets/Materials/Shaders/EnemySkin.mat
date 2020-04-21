@@ -45,7 +45,7 @@ Material:
     - _WindQuality: 0
     m_Colors:
     - Color_3798101A: {r: 12.996602, g: 0, b: 0, a: 0}
-    - Color_60CD6E8: {r: 0.7921978, g: 0.7921978, b: 0.7921978, a: 0}
+    - Color_60CD6E8: {r: 0, g: 0, b: 0, a: 0}
     - Color_C58F67B: {r: 78.79325, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}

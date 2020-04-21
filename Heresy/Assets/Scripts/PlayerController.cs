@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 movement;
     Collider blade;
+    Collider foot;
+    Collider hand;
     
     public Material glowMaterial;
     public Material skinMaterial;
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
         //Gets the collider on the Blade
         blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
+        foot = GameObject.Find("RightFoot").gameObject.GetComponent<Collider>();
+        hand = GameObject.Find("LeftHand").gameObject.GetComponent<Collider>();
         //Gets the Mesh on the Player
         playerMesh = GameObject.Find("Mesh");
 
@@ -164,20 +168,20 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        if (animator.GetBool("Attack") == true)
+        if (animator.GetBool("Attack") == true && enemy)
         {
             Vector3 direction = enemy.transform.position - rb.transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, rotation, attackrotspeed * Time.deltaTime);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && !animator.GetBool("Dash"))
         {   
             enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
             if (enemy)
             {
-                Debug.Log(enemy.name);
+                //Debug.Log(enemy.name);
 
             }
 
@@ -197,7 +201,7 @@ public class PlayerController : MonoBehaviour
                 if (enemy)
                 {
 
-                    Debug.Log(enemy.name);
+                    //Debug.Log(enemy.name);
                     Camera.main.transform.LookAt(enemy);
 
 
@@ -290,6 +294,22 @@ public class PlayerController : MonoBehaviour
     public void AttackColliderOff()
     {
         blade.enabled = false;
+    }    
+    public void FootColliderOn()
+    {
+        foot.enabled = true;
+    }
+    public void FootColliderOff()
+    {
+        foot.enabled = false;
+    }    
+    public void HandColliderOn()
+    {
+        hand.enabled = true;
+    }
+    public void HandColliderOff()
+    {
+        hand.enabled = false;
     }
 
     public void beamSpawn()

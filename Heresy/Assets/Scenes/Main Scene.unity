@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d8a231a5d4fe9443996b5eba32885de, type: 2}
+  - {fileID: 2100000, guid: 770619d9154ce7e4182edeeac78892cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -239,7 +239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322813497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.181141, y: -0.54, z: 15.423333}
+  m_LocalPosition: {x: 13.181141, y: -0.47, z: 15.423333}
   m_LocalScale: {x: 218.55241, y: 1, z: 241.56}
   m_Children: []
   m_Father: {fileID: 0}
@@ -324,7 +324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831022952}
   m_LocalRotation: {x: 0.10870181, y: -0, z: -0, w: 0.9940744}
-  m_LocalPosition: {x: 0, y: 3.45, z: -4.25}
+  m_LocalPosition: {x: 0, y: 4.09, z: -4.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1225165321}
@@ -509,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 5297199625562878031, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.36
+      value: 21.8
       objectReference: {fileID: 0}
     - target: {fileID: 5297199625562878031, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
         type: 3}
@@ -525,6 +525,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297199625562878031, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297199625562878031, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7023630466412364348, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
         type: 3}
@@ -647,7 +657,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!154 &1665153712
 TerrainCollider:
@@ -684,7 +694,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 5d8a231a5d4fe9443996b5eba32885de, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -762,6 +772,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550180094581675268, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.01
+      objectReference: {fileID: 0}
     - target: {fileID: 1366607708824158519, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1,
         type: 3}
       propertyPath: m_Name

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public float attackrotspeed = 1f;
 
     private float gravity = 30.0f;
-    private float groundClamp = -0.05f;
+    private float groundClamp = 0f;
     private float speed;
 
     public Transform enemy;
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
     
         }            
         if (lockedOn == true)
-            {
+        {
                 enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
                 if (enemy)
@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
             {
                 lockedOn = false;
             }
-            }
+        }
     }
 
     public void PhaseAttack()

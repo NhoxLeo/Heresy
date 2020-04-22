@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour
     public GameObject playerMesh;
     public GameObject beam;
     
+
     public bool PhaseIsCD = false;
     private bool phaseAttackNoInvis = false;
     public static bool lockedOn = false;
+
+    public static int p_DMG = 1;
 
     public float startRunSpeed;
     public float turnSpeed;
@@ -116,9 +119,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Hit");
             animator.SetTrigger("Hit");
-            
+
 
         }
+
+       
+        
     }
 
     public void PlayerMovement()
@@ -162,6 +168,7 @@ public class PlayerController : MonoBehaviour
 
     void Sprint()
     {
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             speed *= 1.5f;
@@ -177,28 +184,25 @@ public class PlayerController : MonoBehaviour
     
     public void Attack()
     {
+        enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
 
-        if (animator.GetBool("Attack") == true && enemy)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            animator.ResetTrigger("Moving");
+            animator.ResetTrigger("Idle");           
+        }
+
+        if (animator.GetBool("Attack") == true && enemy != null)
+        {
+            
             Vector3 direction = enemy.transform.position - rb.transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, rotation, attackrotspeed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {   
-            enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
-            if (enemy)
-            {
-                //Debug.Log(enemy.name);
 
-            }
-
-            animator.ResetTrigger("Moving");
-            animator.ResetTrigger("Idle");           
-        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -207,16 +211,12 @@ public class PlayerController : MonoBehaviour
         }            
         if (lockedOn == true)
         {
-                enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
-
-                if (enemy)
-                {
-
-                    //Debug.Log(enemy.name);
-                    Camera.main.transform.LookAt(enemy);
-
-
-                }
+            
+            if (enemy != null)
+            {
+               //Debug.Log(enemy.name);
+                Camera.main.transform.LookAt(enemy);
+            }
             else
             {
                 lockedOn = false;
@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
 
     public void beamSpawn()
     {  
-        Instantiate(beam,transform.position + (transform.forward * 3), transform.rotation);
+        Instantiate(beam,transform.position + (transform.forward * 2), transform.rotation);
         
         animator.SetBool("Power Up", false);                
         

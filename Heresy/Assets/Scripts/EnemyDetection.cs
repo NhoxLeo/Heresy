@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyDetection : MonoBehaviour
 {
+   
     public static List<Transform> enemies = new List<Transform>();
 
     public Transform enemy;
@@ -42,15 +43,7 @@ public class EnemyDetection : MonoBehaviour
     {
         transform.position = player.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.E)) 
-        {
-            enemy = GetClosestEnemy(enemies,transform);
 
-            if (enemy)
-            {
-                
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)

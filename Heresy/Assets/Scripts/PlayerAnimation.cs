@@ -13,7 +13,7 @@ public class PlayerAnimation : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && animator.GetBool("Dash") == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             animator.SetBool("Attack", true);
         }

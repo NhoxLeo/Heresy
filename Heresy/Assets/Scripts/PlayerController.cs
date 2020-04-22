@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        //If the player isn't attacking they can move
-        if (!animator.GetBool("Attack") && (!animator.GetBool("Attack2"))&& (!animator.GetBool("Attack3")) && (!animator.GetBool("Attack4")) && (!animator.GetBool("Attack5")) && (!animator.GetBool ("Power Up")) && (!animator.GetBool("Dash")))
+        //If the player isn't attacking they can move 
+        if (!animator.GetBool("Attack") && (!animator.GetBool("Attack2"))&& (!animator.GetBool("Attack3")) && (!animator.GetBool("Attack4")) && (!animator.GetBool("Attack5")) && (!animator.GetBool ("Power Up") && (!animator.GetCurrentAnimatorStateInfo(0).IsName("React"))))
         {
             PlayerMovement();
         }   
@@ -108,6 +108,17 @@ public class PlayerController : MonoBehaviour
 
         }
         
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Wings"))
+        {
+            Debug.Log("Hit");
+            animator.SetTrigger("Hit");
+            
+
+        }
     }
 
     public void PlayerMovement()
@@ -175,7 +186,7 @@ public class PlayerController : MonoBehaviour
             rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, rotation, attackrotspeed * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !animator.GetBool("Dash"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {   
             enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
 
@@ -277,11 +288,7 @@ public class PlayerController : MonoBehaviour
             playerMesh.SetActive(false);
 
         }
-        if (phaseCDTimer >= phaseInvis && phaseCDTimer <= phaseDashCDTime && Input.GetKeyDown(KeyCode.Mouse0) && animator.GetCurrentAnimatorStateInfo(0).IsName("Moving"))
-        {
-            animator.SetBool("Dash", true);
 
-        }
     }
 
 
@@ -314,7 +321,7 @@ public class PlayerController : MonoBehaviour
 
     public void beamSpawn()
     {  
-        Instantiate(beam,transform.position + (transform.forward * 2), transform.rotation);
+        Instantiate(beam,transform.position + (transform.forward * 3), transform.rotation);
         
         animator.SetBool("Power Up", false);                
         
@@ -350,6 +357,12 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Attack5", false);
     }
+    public void ResetReact()
+    {
+        animator.ResetTrigger("Hit");
+    }
+
+
     public void StartPhaseAttack()
     {
 
@@ -369,10 +382,7 @@ public class PlayerController : MonoBehaviour
         }
     }  
     
-    public void EndDashAnimation()
-    {
-        animator.SetBool("Dash", false);
-    }
+
 
 }
 

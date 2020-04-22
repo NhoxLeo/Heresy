@@ -4856,9 +4856,10 @@ GameObject:
   - component: {fileID: 503017428423939733}
   - component: {fileID: 5741915616140293446}
   - component: {fileID: 5833636990817329665}
+  - component: {fileID: 4035052477930786502}
   m_Layer: 0
   m_Name: Beam
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4871,7 +4872,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8638268352508442517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.98}
+  m_LocalPosition: {x: 0, y: 0.92, z: -0.98}
   m_LocalScale: {x: 26.983397, y: 11.24898, z: 8.582122}
   m_Children:
   - {fileID: 7424913079623407482}
@@ -4937,8 +4938,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.43660855, z: 1}
-  m_Center: {x: 0, y: -0.010869355, z: 0}
+  m_Size: {x: 1, y: 0.43660855, z: 0.14268056}
+  m_Center: {x: 0, y: -0.010869355, z: 0.35337517}
 --- !u!114 &5833636990817329665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4952,6 +4953,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+--- !u!65 &4035052477930786502
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638268352508442517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.44207382, z: 0.119097926}
+  m_Center: {x: 0, y: -0.00882055, z: -0.16344145}
 --- !u!1001 &2481522796283526240
 PrefabInstance:
   m_ObjectHideFlags: 0

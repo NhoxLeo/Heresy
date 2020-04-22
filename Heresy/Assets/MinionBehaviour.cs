@@ -23,6 +23,8 @@ public class MinionBehaviour : StateMachineBehaviour
 
        agent = animator.GetComponent<NavMeshAgent>();
 
+       agent.enabled = true;
+
        rb = animator.GetComponent<Rigidbody>();
     }
 
@@ -66,6 +68,8 @@ public class MinionBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Enemy_Hit");
+        agent.enabled = false;
     }
 
 

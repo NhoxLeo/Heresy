@@ -24,19 +24,17 @@ public class Boss_Walk : StateMachineBehaviour
     {
         agent.SetDestination(player.transform.position);
 
-        
-        
-            int randomAnimation = Random.Range(0, 4);
-          
-           
-                if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
-                {
-                    animator.SetInteger("Attack", randomAnimation);
-                }
+        int randomAnimation = Random.Range(0, 4);
 
+        if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
 
+        {
+            animator.SetInteger("Attack", randomAnimation);
         }
+
     }
+
+}
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 

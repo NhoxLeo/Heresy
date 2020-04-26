@@ -15,11 +15,11 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 0}
   rb: {fileID: 0}
-  attackRange: 3
-  walkRange: 10
+  attackRange: 2
+  walkRange: 15
   rotSpeed: 5
   speed: 3.5
-  runSpeed: 7
+  runSpeed: 10
 --- !u!1101 &-2660863555477261782
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

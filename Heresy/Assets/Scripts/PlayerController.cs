@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
-
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Rendering.PostProcessing;
 public class PlayerController : MonoBehaviour
 {
+
+    
     Animator animator;
     Rigidbody rb;
 
@@ -42,11 +45,18 @@ public class PlayerController : MonoBehaviour
     private float groundClamp = 0f;
     private float speed;
 
+    public int HP = 100;
+    public int MaxHP = 100;
+    public float IFrameT = 1;
+
+    public PPVolumeControl healthPP;
+
     public Transform enemy;
     public void Start()
     {
         
-
+        HP = MaxHP;
+        healthPP.vg.intensity.value = 0.15f;
         //Gets the collider on the Blade
         blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
         foot = GameObject.Find("RightFoot").gameObject.GetComponent<Collider>();
@@ -76,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+
+        
         //Add self created gravity
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
         
@@ -83,7 +95,8 @@ public class PlayerController : MonoBehaviour
         Attack();
         PhaseAttack();
         PhaseDash();
-       
+        Die();
+
         //if Phase is on CD
         if (PhaseIsCD == true)
         {   
@@ -117,9 +130,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wings"))
         {
-            Debug.Log("Hit");
-            animator.SetTrigger("Hit");
 
+            StartCoroutine(TakeDMG());
 
         }
 
@@ -381,9 +393,52 @@ public class PlayerController : MonoBehaviour
 
         }
     }  
+
+    public IEnumerator TakeDMG()
+    {
+
+        healthPP.vg.intensity.value += 0.025f;
+
+        //Turn off sword collider
+        blade.enabled = false;
+        
+        //lose hp from enemy attack
+
+        HP -= Minion.e1_ATK;
+
+        rb.isKinematic = true;
+
+        //play damage animation and stop moving
+        animator.SetTrigger("Hit");
+
+        //Instantiate particle effect
+
+        //become invinsible
+        gameObject.GetComponent<Collider>().enabled = false;
+
+        
+
+        yield return new WaitForSeconds(IFrameT);
+
+        //Become vinsible
+        gameObject.GetComponent<Collider>().enabled = true;
+        rb.isKinematic = false;
+    }
     
+    public void Die()
+    {
+        if (HP <= 0)
+        {
+            Debug.Log("Ded");
+
+            //Play Death animation
+
+            //reset scene
 
 
+
+        }
+    }
 }
 
 

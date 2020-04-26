@@ -12065,6 +12065,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 622150032, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2266547732491064879, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12119,11 +12123,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5297199625562878031, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.261
       objectReference: {fileID: 0}
     - target: {fileID: 7023630466412364348, guid: 3017e04ef6f15b24c9ca9db0c8a0aaae,
         type: 3}
@@ -12315,7 +12314,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17244
+  m_Name: pb_Mesh17426
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12482,6 +12481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2083077316}
   - component: {fileID: 2083077315}
+  - component: {fileID: 2083077317}
   m_Layer: 0
   m_Name: PP
   m_TagString: Untagged
@@ -12520,6 +12520,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083077317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083077314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c67f201e18fcf3429c07c8f375193a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vg: {fileID: 0}
 --- !u!1001 &2297715508289636564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12527,6 +12540,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1547019067, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1, type: 3}
+      propertyPath: IFrameT
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547019067, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1, type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547019067, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1, type: 3}
+      propertyPath: healthPP
+      value: 
+      objectReference: {fileID: 2083077317}
     - target: {fileID: 1366959938672991, guid: 952f6f7777ad3ec4cbac0d96e54cd2d1, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.21995527

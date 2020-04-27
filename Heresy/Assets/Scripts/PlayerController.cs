@@ -45,17 +45,17 @@ public class PlayerController : MonoBehaviour
     private float groundClamp = 0f;
     
     //PLAYER STATS
-    public static float HP = 100;  //Current Health
-    public int MaxHP = 100;  //Max Health
-    public bool Regen = true;  //if regening health
-    public float Regen_T = 0;  //timer till regening starts
-    public static int p_DMG = 1; //Damage given
-    private float speed;  //Current speed
-    public float startRunSpeed;  //Start Speed
-    public float dashSpeed;  //Dash Speed
-    public float turnSpeed;  // Turn to face move direction speed
+    public static float HP = 100;      //Current Health
+    public int MaxHP = 100;            //Max Health
+    public bool Regen = true;          //if regening health
+    public float Regen_T = 0;          //timer till regening starts
+    public static int p_DMG = 1;       //Damage given
+    private float speed;               //Current speed
+    public float startRunSpeed;        //Start Speed
+    public float dashSpeed;            //Dash Speed
+    public float turnSpeed;            // Turn to face move direction speed
     public float attackrotspeed = 1f;  //Turn to face enemy speed
-    public float IFrameT = 0.5f;  //Invinsibility time
+    public float IFrameT = 0.5f;       //Invinsibility time
 
     
 
@@ -150,7 +150,21 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Wings"))
         {
 
-            StartCoroutine(TakeDMG());
+            StartCoroutine(TakeMinionDMG());
+
+        }        
+        
+        if (other.gameObject.CompareTag("LeftFist"))
+        {
+
+            StartCoroutine(LeftFistDMG());
+
+        }        
+        
+        if (other.gameObject.CompareTag("RightFist"))
+        {
+
+            StartCoroutine(RightFistDMG());
 
         }
 
@@ -228,6 +242,7 @@ public class PlayerController : MonoBehaviour
         {
             
             Vector3 direction = enemy.transform.position - rb.transform.position;
+            direction.y = 0;
             Quaternion rotation = Quaternion.LookRotation(direction);
             rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, rotation, attackrotspeed * Time.deltaTime);
         }
@@ -446,7 +461,7 @@ public class PlayerController : MonoBehaviour
         }
     }  
 
-    public IEnumerator TakeDMG()
+    public IEnumerator TakeMinionDMG()
     {
        
         //LoseHP
@@ -460,7 +475,7 @@ public class PlayerController : MonoBehaviour
         
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
-
+        
         //Flash
         skinMaterial = flash;
         Invoke("ResetHitColor", 0.05f);
@@ -476,6 +491,70 @@ public class PlayerController : MonoBehaviour
         //Become vinsible
         gameObject.GetComponent<Collider>().enabled = true;
         rb.isKinematic = false;
+    }
+    public IEnumerator LeftFistDMG()
+    {
+
+        //LoseHP
+        HP -= BossCombat.leftFistDamage;
+        PPVolumeControl.vgI += 0.20f;
+        Regen_T = 0;
+        Regen = false;
+
+        //Turn off sword collider
+        blade.enabled = false;
+
+        //play damage animation and stop moving
+        animator.SetTrigger("Hit");
+        
+        //Flash
+        skinMaterial = flash;
+        Invoke("ResetHitColor", 0.05f);
+
+        //Make Invinsible
+        gameObject.GetComponent<Collider>().enabled = false;
+        rb.isKinematic = true;
+
+        //Instantiate particle effect 
+        //Wait for IFrames
+        yield return new WaitForSeconds(IFrameT);
+
+        //Become vinsible
+        gameObject.GetComponent<Collider>().enabled = true;
+        rb.isKinematic = false;
+
+    }   
+    public IEnumerator RightFistDMG()
+    {
+        //LoseHP
+        HP -= BossCombat.rightFistDamage;
+        PPVolumeControl.vgI += 0.10f;
+        Regen_T = 0;
+        Regen = false;
+
+        //Turn off sword collider
+        blade.enabled = false;
+
+        //play damage animation and stop moving
+        animator.SetTrigger("Hit");
+        
+        //Flash
+        skinMaterial = flash;
+        Invoke("ResetHitColor", 0.05f);
+
+        //Make Invinsible
+        gameObject.GetComponent<Collider>().enabled = false;
+        rb.isKinematic = true;
+
+        //Instantiate particle effect 
+        //Wait for IFrames
+        yield return new WaitForSeconds(IFrameT);
+
+        //Become vinsible
+        gameObject.GetComponent<Collider>().enabled = true;
+        rb.isKinematic = false;
+
+
     }
 
     public void ResetHitColor()

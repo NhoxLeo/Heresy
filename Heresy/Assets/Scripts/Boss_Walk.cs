@@ -6,8 +6,16 @@ using UnityEngine.AI;
 public class Boss_Walk : StateMachineBehaviour
 {
 
-    public float speed = 2.5f;
+    public float speed = 3f;
+    public float runSpeed = 6f;
     public float attackRange = 3f;
+
+    public float jumpAttackRangeMin = 7f;
+    public float jumpAttackRangeMax = 8f;
+    
+    public float walkRange = 12;
+
+    public float rotSpeed = 10f;
 
     public GameObject player;
     public NavMeshAgent agent;
@@ -17,6 +25,7 @@ public class Boss_Walk : StateMachineBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         agent = animator.GetComponent<NavMeshAgent>();
+        agent.enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,19 +33,52 @@ public class Boss_Walk : StateMachineBehaviour
     {
         agent.SetDestination(player.transform.position);
 
-        int randomAnimation = Random.Range(0, 4);
+        int randomAnimation = Random.Range(0, 3);
 
-        if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
-
+        if (Vector3.Distance(player.transform.position, agent.transform.position) >= walkRange)
         {
-            animator.SetInteger("Attack", randomAnimation);
+            animator.SetBool("Running", true);
+            agent.speed = runSpeed;
+        }
+        else
+        {
+            animator.SetBool("Running", false);
+            agent.speed = speed;
         }
 
+        if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
+        {
+            agent.isStopped = true;
+
+
+            Vector3 direction = player.transform.position - agent.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            agent.transform.rotation = Quaternion.Lerp(agent.transform.rotation, rotation, rotSpeed * Time.deltaTime);
+
+
+            animator.SetInteger("Attack", randomAnimation);
+        }
+        else
+        {
+            animator.SetInteger("Attack", 0);
+            agent.isStopped = false;
+        }
+
+        if (Vector3.Distance(player.transform.position, agent.transform.position) >= jumpAttackRangeMin && Vector3.Distance(player.transform.position, agent.transform.position) <= jumpAttackRangeMax)
+        {
+            animator.SetInteger("Attack", 3);
+        }
+
+
     }
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+/*    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }*/
 
 }
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    
 
 
 

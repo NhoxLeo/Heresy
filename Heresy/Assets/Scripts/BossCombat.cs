@@ -18,8 +18,8 @@ public class BossCombat : MonoBehaviour
     public Animator animator;
 
     // Transform for empty game object of where the boss attacks
-    public Transform attackPoint;
-
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
     // Variable for boss movement speed
     public float speed = 2.5f;
 
@@ -28,25 +28,26 @@ public class BossCombat : MonoBehaviour
 
     // Variable for the player and navmesh agent to find the player
     public GameObject player;
-    public NavMeshAgent agent;
-
-    public int attackDamage = 40;
-
-
+    public GameObject minion;
+    public static int leftFistDamage = 20;
+    public static int rightFistDamage = 10;
+    public float hitSlow_T;
+    Collider sword;
     // Start is called before the first frame update
     void Start()
     {
         // Find and set colliders
         leftHandCollider = GameObject.Find("LeftHandCollider").GetComponent<Collider>();
         rightHandCollider = GameObject.Find("RightHandCollider").GetComponent<Collider>();
-
+        sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
+        
         // boss starting health is equal to its max health
         currentHealth = maxHealth;
         bossHealthBar.SetMaxHealth(maxHealth);
 
         // When the script runs, find the game object with "Player" tag and find the navmesh agent
         player = GameObject.FindGameObjectWithTag("Player");
-        agent = animator.GetComponent<NavMeshAgent>();
+        
     }
 
 
@@ -55,60 +56,89 @@ public class BossCombat : MonoBehaviour
     void Update()
     {
         
-            
+         Roar();
         Die();
-            
-        // Damage test
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(10);
-        }
-
-        void TakeDamage(int damage)
-        {
-            currentHealth -= damage;
-
-            bossHealthBar.SetHealth(currentHealth);
-
-
-        }
-
-        void Die()
-        {
-            if (currentHealth <= 0)
-            {
-                Debug.Log("Enemy died!");
-            }
-        }
-
-        // Every frame, set the transform of the boss to the position of the player
-        agent.SetDestination(player.transform.position);
-
-        
-        // Every frame, check if the boss is in range of the player
-        if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
-
-        {
-            // If boss is in range of player call the attack function
-            Attack();
-        }
+        Physics.IgnoreCollision(leftHandCollider, sword);
+        Physics.IgnoreCollision(rightHandCollider, sword);
 
     }
-    void Attack()
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Attack function is called
-        // Play Random attack animation
-        int randomAnimation = Random.Range(0, 4);
-        animator.SetInteger("Attack", randomAnimation);
-
-        // Detect player in range of attack
-        Collider[] hitPlayer = Physics.OverlapSphere(attackPoint.position, attackRange);
-
-        // Damage player
-        foreach(Collider player in hitPlayer)
+        if (other.gameObject.CompareTag("Sword"))
         {
-            //Debug.Log("We hit" + player.name);
+
+            StartCoroutine(TakeDamage(1));
+           
+
         }
+    }
+
+    public void Die()
+    {
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Enemy died!");
+        }
+    }
+
+
+    public IEnumerator TakeDamage(int damage)
+    {      
+        currentHealth -= damage;
+
+        bossHealthBar.SetHealth(currentHealth);
+        //Slow time
+        Time.timeScale = 0.33f;
+        //Turn off attack collider
+        leftHandCollider.enabled = false;
+        rightHandCollider.enabled = false;
+        //wait for slow down time 
+        yield return new WaitForSeconds(hitSlow_T);
+        //turn time back
+        Time.timeScale = 1;
+    }
+
+    public void SummonMinion()
+    {
+        Instantiate(minion, spawnPoint1);
+        Instantiate(minion, spawnPoint2);
+    }
+
+    void Roar()
+    {
+        if (currentHealth <= 50 && currentHealth >= 48)
+        {
+            animator.SetTrigger("Roar");
+            animator.SetBool("Running", false);
+        }
+    }
+
+    public void ResetHitColor()
+    {
+        
+    }
+
+    public void LHCollOn()
+    {
+        leftHandCollider.enabled = true;
+    }
+    public void LHCollOff()
+    {
+        leftHandCollider.enabled = false;
+    }    
+    public void RHCollOn()
+    {
+        rightHandCollider.enabled = true;
+    }
+    public void RHCollOff()
+    {
+        rightHandCollider.enabled = false;
+    }
+
+    public void EndJumpATK()
+    {
+        
     }
 
 

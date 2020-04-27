@@ -251,7 +251,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8f46be9afb35bab4cb6099b79c5f79d0, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -316,24 +316,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowMaterial: {fileID: 2100000, guid: 53e7a981acd5e43499e514850cd94b73, type: 2}
   skinMaterial: {fileID: 2100000, guid: 7fd1f1c501b08904ab5f20f2a56e0679, type: 2}
+  flash: {fileID: 2100000, guid: 7ddf640ebd0e72740ba066e7c5961263, type: 2}
+  origMat: {fileID: 0}
   playerMesh: {fileID: 1687031836904947933}
   beam: {fileID: 7377880810410524291, guid: 157946506d40acf4a83bfef7c2a5a12a, type: 3}
+  enemy: {fileID: 0}
   PhaseIsCD: 0
-  startRunSpeed: 10
-  turnSpeed: 10
-  dashSpeed: 25
   phaseDashCDTime: 1
   phaseSlashCDTime: 6
-  homingSpeed: 10
   phaseInvis: 0.8
   endPhaseInvis: 0.5
-  attackrotspeed: 5
   HP: 100
   MaxHP: 100
   Regen: 1
   Regen_T: 0
+  startRunSpeed: 10
+  dashSpeed: 25
+  turnSpeed: 10
+  attackrotspeed: 5
   IFrameT: 0.5
-  enemy: {fileID: 0}
 --- !u!95 &5877188948498696648
 Animator:
   serializedVersion: 3

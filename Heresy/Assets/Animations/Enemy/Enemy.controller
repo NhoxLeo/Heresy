@@ -15,7 +15,9 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 0}
   rb: {fileID: 0}
+  noAttack: 1
   attackRange: 2
+  rotRange: 4
   walkRange: 15
   rotSpeed: 5
   speed: 3.5
@@ -60,7 +62,9 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 0}
   rb: {fileID: 0}
+  noAttack: 1
   attackRange: 3
+  rotRange: 5
   walkRange: 10
   rotSpeed: 5
   speed: 0

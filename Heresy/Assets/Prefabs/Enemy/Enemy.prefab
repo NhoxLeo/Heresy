@@ -30,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5427774665431085112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.483, y: 1.261, z: -9.17}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.261, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5006512735680191962}
   m_Father: {fileID: 2266547732491064879}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &3684289154866543771
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   hitParticle: {fileID: 8599735452556132953, guid: 4afc5a5ef2ed16a49bfcd66062aa5ff4,
     type: 3}
   animator: {fileID: 0}
+  wings: {fileID: 0}
   hitMat: {fileID: 2100000, guid: dafaae5bcc879ce4596472d01895c02a, type: 2}
   hitMat2: {fileID: 2100000, guid: 6c3faf4ea6404c541ad2118c0d7b7451, type: 2}
   e1_HP: 10

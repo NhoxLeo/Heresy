@@ -12,31 +12,33 @@ public class EnemyDetection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemy = null;
     }
-            public static Transform GetClosestEnemy(List<Transform> enemies, Transform fromThis)
-            {
-            Transform bestTarget = null;
-            
-            float closestDistanceSqr = Mathf.Infinity;
-            
-            Vector3 currentPosition = fromThis.position;
-            
-            foreach (Transform potentialTarget in enemies)
-            {
-                Vector3 directionToTarget = potentialTarget.position - currentPosition;
-                float dSqrToTarget = directionToTarget.sqrMagnitude;
-                
-                if (dSqrToTarget < closestDistanceSqr)
-                {
-                    closestDistanceSqr = dSqrToTarget;
-                    bestTarget = potentialTarget;
-                }
-            }
-            return bestTarget;
 
-            
+    public static Transform GetClosestEnemy(List<Transform> enemies, Transform fromThis)
+    {
+        Transform bestTarget = null;
+
+        float closestDistanceSqr = Mathf.Infinity;
+
+        Vector3 currentPosition = fromThis.position;
+
+        foreach (Transform potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
             }
+        }
+        return bestTarget;
+
+
+    }
+   
 
     // Update is called once per frame
     void Update()

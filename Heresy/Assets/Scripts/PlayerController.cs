@@ -45,18 +45,22 @@ public class PlayerController : MonoBehaviour
     private float groundClamp = 0f;
     private float speed;
 
-    public int HP = 100;
+    public float HP = 100;
     public int MaxHP = 100;
+    public bool Regen = true;
+    public float Regen_T = 0;
+    
+   
     public float IFrameT = 1;
 
-    public PPVolumeControl healthPP;
-
     public Transform enemy;
+
     public void Start()
     {
         
         HP = MaxHP;
-        healthPP.vg.intensity.value = 0.15f;
+        
+        
         //Gets the collider on the Blade
         blade = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
         foot = GameObject.Find("RightFoot").gameObject.GetComponent<Collider>();
@@ -69,7 +73,8 @@ public class PlayerController : MonoBehaviour
         
         //Makes the Players speed equal the set speed
         speed = startRunSpeed;
-
+        
+        PPVolumeControl.vgI = 0.15f;
 
     }
 
@@ -123,7 +128,34 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
         
+        if(Regen == false)
+        {
+            Regen_T += Time.deltaTime;
+            
+ 
+        }
+        else
+        {
+            //Heal
+            HP += Time.deltaTime * 2;
+            PPVolumeControl.vgI -= Time.deltaTime * 0.02f;
+
+        }
+        if(Regen_T >= 5)
+        {
+            Regen = true;
+            Regen_T = 0;   
+        }
+        if(HP >= MaxHP)
+        {
+            HP = MaxHP;
+        }
+        if(PPVolumeControl.vgI <= 0.15f)
+        {
+            PPVolumeControl.vgI = 0.15f;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -396,8 +428,8 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator TakeDMG()
     {
-
-        healthPP.vg.intensity.value += 0.025f;
+        Regen_T = 0;
+        PPVolumeControl.vgI += 0.05f;
 
         //Turn off sword collider
         blade.enabled = false;
@@ -416,7 +448,7 @@ public class PlayerController : MonoBehaviour
         //become invinsible
         gameObject.GetComponent<Collider>().enabled = false;
 
-        
+        Regen = false;
 
         yield return new WaitForSeconds(IFrameT);
 

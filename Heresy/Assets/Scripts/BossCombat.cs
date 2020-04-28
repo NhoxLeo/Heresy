@@ -33,7 +33,10 @@ public class BossCombat : MonoBehaviour
     public static int leftFistDamage = 20;
     public static int rightFistDamage = 10;
     public float hitSlow_T;
+    public float HPercent;
     Collider sword;
+
+    public bool roaring = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,16 +52,15 @@ public class BossCombat : MonoBehaviour
 
         // When the script runs, find the game object with "Player" tag and find the navmesh agent
         player = GameObject.FindGameObjectWithTag("Player");
-        
-    }
 
+        HPercent = currentHealth / maxHealth;
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        
-        Roar();
+        StartCoroutine(Roar());
         Die();
         Physics.IgnoreCollision(leftHandCollider, sword);
         Physics.IgnoreCollision(rightHandCollider, sword);
@@ -71,10 +73,8 @@ public class BossCombat : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Sword"))
         {
-
             StartCoroutine(TakeDamage(1));
            
-
         }
     }
 
@@ -90,7 +90,7 @@ public class BossCombat : MonoBehaviour
     public IEnumerator TakeDamage(int damage)
     {      
         currentHealth -= damage;
-
+        
         bossHealthBar.SetHealth(currentHealth);
         //Slow time
         Time.timeScale = 0.33f;
@@ -109,18 +109,25 @@ public class BossCombat : MonoBehaviour
         Instantiate(minion, spawnPoint2);
     }
 
-    void Roar()
+    public IEnumerator Roar()
     {
-        if (currentHealth <= 50 && currentHealth >= 48)
+
+        if (currentHealth == 75 && roaring == false||currentHealth == 50 && roaring == false || currentHealth == 25 && roaring == false)
         {
             agent.isStopped = true;
-            animator.SetTrigger("Roar");
             animator.SetBool("Running", false);
+            animator.SetBool("Roar", true);
+            roaring = true;
+            yield return new WaitForSeconds(30);
+            roaring = false;
         }
+        
+
     }
 
-    public void ResetHitColor()
+    public void ResetRoar()
     {
+        animator.SetBool("Roar", false);
         
     }
 
@@ -129,15 +136,16 @@ public class BossCombat : MonoBehaviour
         agent.isStopped = true;
             
     }
-        public void StartAgent()
+    public void StartAgent()
     {
         
         agent.isStopped = false;
             
-    }        public void Airtele()
+    }        
+    public void Airtele()
     {
         
-        agent.Warp(player.transform.position);
+        agent.Warp(player.transform.position - player.transform.forward *-1);
             
     }
 

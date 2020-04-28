@@ -16,30 +16,31 @@ public class Boss_Walk : StateMachineBehaviour
     public float walkRange = 12;
 
     public float rotSpeed = 10f;
-
+    public GameObject baal;
     public GameObject player;
     public NavMeshAgent agent;
     public Rigidbody rb;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        baal = GameObject.Find("Baal");
         player = GameObject.FindGameObjectWithTag("Player");
         agent = animator.GetComponent<NavMeshAgent>();
         rb = animator.GetComponent<Rigidbody>();
-        //agent.enabled = true;
+        agent.enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.SetDestination(player.transform.position);
-        
 
-       if (Vector3.Distance(player.transform.position, agent.transform.position) >= 3)
-       { 
-            int randomAnimation = Random.Range(0, 3);
+
+        if (Vector3.Distance(player.transform.position, agent.transform.position) >= 5 && !animator.GetBool("Roar"))
+        {
             agent.enabled = true;
+            agent.SetDestination(player.transform.position);
+
+            int randomAnimation = Random.Range(0, 4);
 
 
             if (Vector3.Distance(player.transform.position, agent.transform.position) >= walkRange)
@@ -60,6 +61,8 @@ public class Boss_Walk : StateMachineBehaviour
 
                 Vector3 direction = player.transform.position - agent.transform.position;
                 Quaternion rotation = Quaternion.LookRotation(direction);
+                rotation.x = 0;
+                rotation.z = 0;
                 agent.transform.rotation = Quaternion.Lerp(agent.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
 
@@ -74,13 +77,22 @@ public class Boss_Walk : StateMachineBehaviour
             if (Vector3.Distance(player.transform.position, agent.transform.position) >= jumpAttackRangeMin && Vector3.Distance(player.transform.position, agent.transform.position) <= jumpAttackRangeMax)
             {
                 animator.SetInteger("Attack", 3);
+
             }
-       }
-       else
-       {
-            agent.isStopped = true;
-            Vector3 direction = (rb.transform.position - rb.transform.forward).normalized;
-            rb.MovePosition(rb.transform.position + direction * stepBackSpeed* Time.deltaTime);
+        }
+       
+        if(Vector3.Distance(player.transform.position, agent.transform.position) <= 5)
+        { 
+            agent.enabled = false;
+            
+            Vector3 direction = -baal.transform.forward.normalized;
+            rb.MovePosition(baal.transform.position + direction * stepBackSpeed* Time.deltaTime);
+
+            Vector3 rotDirection = player.transform.position - baal.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(rotDirection);
+            rotation.x = 0;
+            rotation.z = 0;
+            baal.transform.rotation = Quaternion.Lerp(baal.transform.rotation, rotation, rotSpeed * Time.deltaTime);
         }
 
 
@@ -90,7 +102,7 @@ public class Boss_Walk : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetInteger("Attack",0);
+        animator.SetInteger("Attack", 0);
 
     }
 

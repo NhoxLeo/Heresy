@@ -62,6 +62,8 @@ public class BossCombat : MonoBehaviour
         Die();
         Physics.IgnoreCollision(leftHandCollider, sword);
         Physics.IgnoreCollision(rightHandCollider, sword);
+        
+
 
     }
 
@@ -121,10 +123,25 @@ public class BossCombat : MonoBehaviour
     {
         
     }
-    public void EndJumpATK()
+
+    public void StopAgent()
     {
-        agent.Warp(Baal.transform.position);
+        agent.isStopped = true;
+            
     }
+        public void StartAgent()
+    {
+        
+        agent.isStopped = false;
+            
+    }        public void Airtele()
+    {
+        
+        agent.Warp(player.transform.position);
+            
+    }
+
+
 
     public void LHCollOn()
     {

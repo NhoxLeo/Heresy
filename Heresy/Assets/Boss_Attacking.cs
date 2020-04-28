@@ -26,19 +26,13 @@ public class Boss_Attacking : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-        
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Jump"))
-        {            
+            agent.SetDestination(player.transform.position);
+
             Vector3 direction = player.transform.position - agent.transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             agent.transform.rotation = Quaternion.Lerp(agent.transform.rotation, rotation, rotSpeed * Time.deltaTime);
-        }
-        else
-        {
-            
-            
-        }
+        
+
     }
 
 

@@ -8,7 +8,7 @@ public class BossCombat : MonoBehaviour
     // Variables for boss health
     public int maxHealth = 100;
     public int currentHealth;
-
+    public GameObject Baal;
     Collider leftHandCollider;
     Collider rightHandCollider;
 
@@ -16,6 +16,7 @@ public class BossCombat : MonoBehaviour
 
     // Animator controller variable
     public Animator animator;
+    public NavMeshAgent agent;
 
     // Transform for empty game object of where the boss attacks
     public Transform spawnPoint1;
@@ -36,11 +37,12 @@ public class BossCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Baal = GameObject.FindGameObjectWithTag("Baal");
         // Find and set colliders
         leftHandCollider = GameObject.Find("LeftHandCollider").GetComponent<Collider>();
         rightHandCollider = GameObject.Find("RightHandCollider").GetComponent<Collider>();
         sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
-        
+        agent = GetComponent<NavMeshAgent>();
         // boss starting health is equal to its max health
         currentHealth = maxHealth;
         bossHealthBar.SetMaxHealth(maxHealth);
@@ -56,7 +58,7 @@ public class BossCombat : MonoBehaviour
     void Update()
     {
         
-         Roar();
+        Roar();
         Die();
         Physics.IgnoreCollision(leftHandCollider, sword);
         Physics.IgnoreCollision(rightHandCollider, sword);
@@ -109,6 +111,7 @@ public class BossCombat : MonoBehaviour
     {
         if (currentHealth <= 50 && currentHealth >= 48)
         {
+            agent.isStopped = true;
             animator.SetTrigger("Roar");
             animator.SetBool("Running", false);
         }
@@ -117,6 +120,10 @@ public class BossCombat : MonoBehaviour
     public void ResetHitColor()
     {
         
+    }
+    public void EndJumpATK()
+    {
+        agent.Warp(Baal.transform.position);
     }
 
     public void LHCollOn()
@@ -136,10 +143,7 @@ public class BossCombat : MonoBehaviour
         rightHandCollider.enabled = false;
     }
 
-    public void EndJumpATK()
-    {
-        
-    }
+
 
 
 }

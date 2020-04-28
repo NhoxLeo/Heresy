@@ -47,10 +47,7 @@ public class Attacking : StateMachineBehaviour
 
 
     }
-    public void EndJumpATK()
-    {
 
-    }
 
 
 }

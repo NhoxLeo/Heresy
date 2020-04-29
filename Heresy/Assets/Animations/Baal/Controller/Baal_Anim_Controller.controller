@@ -509,7 +509,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Baal_AttackJump2
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8026956473546046852}
@@ -605,7 +605,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 740, y: 390, z: 0}
   m_EntryPosition: {x: 390, y: 510, z: 0}
-  m_ExitPosition: {x: 730, y: -110, z: 0}
+  m_ExitPosition: {x: 740, y: 20, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -2975384092814385746}
 --- !u!1101 &5545301861735722775

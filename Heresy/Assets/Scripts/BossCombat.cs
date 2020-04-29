@@ -11,7 +11,9 @@ public class BossCombat : MonoBehaviour
     public GameObject Baal;
     Collider leftHandCollider;
     Collider rightHandCollider;
-
+    public SkinnedMeshRenderer baalSMR;
+    public Material flash;
+    public Material skin;
     public BossHealthBar bossHealthBar;
 
     // Animator controller variable
@@ -30,6 +32,8 @@ public class BossCombat : MonoBehaviour
     // Variable for the player and navmesh agent to find the player
     public GameObject player;
     public GameObject minion;
+    public GameObject blood;
+
     public static int leftFistDamage = 20;
     public static int rightFistDamage = 10;
     public float hitSlow_T;
@@ -41,6 +45,7 @@ public class BossCombat : MonoBehaviour
     void Start()
     {
         Baal = GameObject.FindGameObjectWithTag("Baal");
+        baalSMR = GameObject.Find("Baal").GetComponentInChildren<SkinnedMeshRenderer>();
         // Find and set colliders
         leftHandCollider = GameObject.Find("LeftHandCollider").GetComponent<Collider>();
         rightHandCollider = GameObject.Find("RightHandCollider").GetComponent<Collider>();
@@ -74,7 +79,7 @@ public class BossCombat : MonoBehaviour
         if (other.gameObject.CompareTag("Sword"))
         {
             StartCoroutine(TakeDamage(1));
-           
+            //Instantiate(blood, transform.position + (transform.up *2 + transform.forward / 2), transform.rotation);
         }
     }
 
@@ -91,6 +96,7 @@ public class BossCombat : MonoBehaviour
     {      
         currentHealth -= damage;
         
+        baalSMR.material = flash;
         bossHealthBar.SetHealth(currentHealth);
         //Slow time
         Time.timeScale = 0.33f;
@@ -99,6 +105,7 @@ public class BossCombat : MonoBehaviour
         rightHandCollider.enabled = false;
         //wait for slow down time 
         yield return new WaitForSeconds(hitSlow_T);
+        baalSMR.material = skin;
         //turn time back
         Time.timeScale = 1;
     }

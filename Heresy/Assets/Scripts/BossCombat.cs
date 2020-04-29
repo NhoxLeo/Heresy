@@ -172,7 +172,7 @@ public class BossCombat : MonoBehaviour
     public void Airtele()
     {
         //Warp Boss
-        agent.Warp(player.transform.position - player.transform.forward *-1);
+        agent.Warp(player.transform.position - player.transform.forward *-3.5f);
             
     }
     public void LHCollOn()

@@ -63,6 +63,7 @@ public class Boss_Walk : StateMachineBehaviour
                 //Walk
                 animator.SetBool("Running", false);
                 agent.speed = speed;
+                
             }
 
             //if player is in attack range 
@@ -93,7 +94,7 @@ public class Boss_Walk : StateMachineBehaviour
             {
                 //set animation jump
                 animator.SetInteger("Attack", 3);
-
+                
             }
         }
        

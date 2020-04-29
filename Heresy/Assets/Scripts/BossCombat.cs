@@ -15,8 +15,10 @@ public class BossCombat : MonoBehaviour
     //GameObjects
     public GameObject player;
     public GameObject minion;
+    public GameObject minionParticle;
     public GameObject blood;
-   
+    public GameObject fireBall; 
+
     //Colliders
     Collider leftHandCollider;
     Collider rightHandCollider;
@@ -27,8 +29,9 @@ public class BossCombat : MonoBehaviour
     public Material skin;
     
     // Transform for empty game object of where the boss attacks
-    public Transform spawnPoint1;
-    public Transform spawnPoint2;
+    public Transform e_spawnPoint1;
+    public Transform e_spawnPoint2;
+    public Transform fireBallSpawn;
     
     //Stats
     public int maxHealth = 100; //Max Hp
@@ -40,7 +43,7 @@ public class BossCombat : MonoBehaviour
     
     //If boss is roaring
     public bool roaring = false;
-    
+    public bool fireBallCharge = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +70,8 @@ public class BossCombat : MonoBehaviour
     {
         //starts to roar
         StartCoroutine(Roar());
+
+        StartCoroutine(Fireball());
         //boss dies
         Die();
         //Ignore the collision between the bosses attack colliders and the players sword collider
@@ -135,6 +140,28 @@ public class BossCombat : MonoBehaviour
         
     }   
     
+    public IEnumerator Fireball()
+    {
+        if (currentHealth <= 47 && fireBallCharge == false )
+        {
+            //boss is roaring
+            fireBallCharge = true;
+            //run animation is false
+            agent.enabled = false;
+            animator.SetBool("Running", false);
+            //boss stops moving
+            //Boss roar animation
+            animator.SetBool("FireBall",true);
+           
+
+            //Wait
+            yield return new WaitForSeconds(25); 
+
+            //boss is not roaring
+            fireBallCharge = false;
+        }
+    }
+
     //Boss Dies
     public void Die()
     {
@@ -149,8 +176,17 @@ public class BossCombat : MonoBehaviour
     //Events
     public void SummonMinion()
     {   //Spawn minions at these points
-        Instantiate(minion, spawnPoint1);
-        Instantiate(minion, spawnPoint2);
+        Instantiate(minion, e_spawnPoint1);
+        Instantiate(minion, e_spawnPoint2);        
+        Instantiate(minionParticle, e_spawnPoint1);
+        Instantiate(minionParticle, e_spawnPoint2);
+    }    
+    
+    public void FireBall()
+    {   
+        //Spawn minions at these points
+        Instantiate(fireBall, fireBallSpawn);
+        
     }
     public void ResetRoar()
     {
@@ -160,20 +196,20 @@ public class BossCombat : MonoBehaviour
     public void StopAgent()
     {
         //Stop boss moving
-        agent.isStopped = true;
+        agent.enabled = false;
             
     }
     public void StartAgent()
     {
         //Start boss moving
-        agent.isStopped = false;
+        agent.enabled = true;
             
     }        
     public void Airtele()
     {
         //Warp Boss
-        agent.Warp(player.transform.position - player.transform.forward *-3.5f);
-            
+        agent.Warp(player.transform.position - player.transform.forward * -4);
+
     }
     public void LHCollOn()
     {
@@ -195,7 +231,10 @@ public class BossCombat : MonoBehaviour
         //Turn on attack collider
         rightHandCollider.enabled = false;
     }
-
+    public void FireBallFalse()
+    {
+        animator.SetBool("FireBall", false);
+    }
 
 
 

@@ -40,7 +40,7 @@ public class Boss_Walk : StateMachineBehaviour
             agent.enabled = true;
             agent.SetDestination(player.transform.position);
 
-            int randomAnimation = Random.Range(0, 4);
+            int randomAnimation = Random.Range(0, 3);
 
 
             if (Vector3.Distance(player.transform.position, agent.transform.position) >= walkRange)

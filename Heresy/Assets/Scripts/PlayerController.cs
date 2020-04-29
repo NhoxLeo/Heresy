@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Material skinMaterial;
     public Material flash;
     public Material origMat;
+    
     //Get Objects in Scene and from prefabs
     public GameObject playerMesh;
     public GameObject beam;

@@ -4,40 +4,48 @@ using UnityEngine;
 
 public class Minion : MonoBehaviour
 {
-
-    public GameObject hitParticle;
+    //Get components
+    Collider wings;
+    Collider sword;
     public Animator animator;
 
-    public Collider wings;
-    Collider sword;
-
+    //Objects
+    public GameObject hitParticle;
+   
+    //Materials
     public Material hitMat;
     public Material hitMat2;
 
-    public int e1_HP = 10;
-    public static int e1_ATK = 5;
-    public float hitSlow_T;
-    private float hitColour;
+    //Stats
+    public int e1_HP = 10; //enemy HP
+    public static int e1_ATK = 5; //Enemy DMG
+    
+    //effects
+    public float hitSlow_T; //how long game slows for hits
+    private float hitColour; //shader colour change when hit
+
     // Start is called before the first frame update
     void Start()
     {
+        //Get Components
         animator = GetComponent<Animator>();
         wings = gameObject.GetComponentInChildren<BoxCollider>();
+        sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
 
+        //Set Materials
         hitMat.SetFloat("Vector1_1F4E68D2", 0.1f);
         hitMat2.SetFloat("Vector1_3D6E13D4", 0f);
         hitColour = 0f;
 
-        sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //Ignore collision between wing and sword
         Physics.IgnoreCollision(wings, sword);
-        Death();
 
+        Death();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,23 +59,29 @@ public class Minion : MonoBehaviour
     }
 
     public IEnumerator TakeDmg()
-    {
-        Debug.Log("Hit");
+    {       
+        //Turn off attack collider
+        wings.enabled = false;
+        
+        //Lose HP
+        e1_HP -= PlayerController.p_DMG;  
+        
+        //Start animation
+        animator.SetTrigger("Enemy_Hit");
+        
         //Change colour
         hitMat.SetFloat("Vector1_1F4E68D2", hitColour += 0.2f);
         hitMat2.SetFloat("Vector1_3D6E13D4", 50f);
-        //Lose HP
-        e1_HP -= PlayerController.p_DMG;
+                        
         //Instantiate partile effect
-        Instantiate(hitParticle, transform.position + (transform.forward / 2), hitParticle.transform.rotation);
+        Instantiate(hitParticle, transform.position + (transform.forward / 2), hitParticle.transform.rotation); 
+
         //Slow time
         Time.timeScale = 0.33f;
-        //Start animation
-        animator.SetTrigger("Enemy_Hit");
-        //Turn off attack collider
-        wings.enabled = false;
+        
         //wait for slow down time 
         yield return new WaitForSeconds(hitSlow_T);
+        
         //change colour back
         hitMat2.SetFloat("Vector1_3D6E13D4", 1f);
         //turn time back

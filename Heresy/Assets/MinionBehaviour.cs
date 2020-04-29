@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class MinionBehaviour : StateMachineBehaviour
 {
+   
     public GameObject player;
     public NavMeshAgent agent;
     public Rigidbody rb;
@@ -33,11 +34,11 @@ public class MinionBehaviour : StateMachineBehaviour
      //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        //move to player
         agent.SetDestination(player.transform.position);
 
         
-       
+       //If out of walk range, RUN
         if (Vector3.Distance(player.transform.position, agent.transform.position) >= walkRange)
         {
             
@@ -50,22 +51,25 @@ public class MinionBehaviour : StateMachineBehaviour
         }
         
 
-
+        //if in attack range
         if (Vector3.Distance(player.transform.position, agent.transform.position) <= attackRange)
         {
-
+            //dont move
             agent.isStopped = true;
+
+            //roate to player
             Vector3 direction = player.transform.position - agent.transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             agent.transform.rotation = Quaternion.Lerp(agent.transform.rotation, rotation, rotSpeed * Time.deltaTime);
 
+            //Attack
             animator.SetTrigger("Attack");
 
         }
         else
         {
-           
-                agent.isStopped = false;
+           //move
+           agent.isStopped = false;
             
         }
         
@@ -75,6 +79,7 @@ public class MinionBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //leaving this animation resets everything
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Enemy_Hit");
         agent.enabled = false;

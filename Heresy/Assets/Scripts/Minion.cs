@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Minion : MonoBehaviour
 {
     //Get components
     Collider wings;
     Collider sword;
+
     public Animator animator;
+    public NavMeshAgent agent;
 
     //Objects
     public GameObject hitParticle;
-   
+    
+
     //Materials
     public Material hitMat;
     public Material hitMat2;
@@ -25,12 +29,19 @@ public class Minion : MonoBehaviour
     private float hitColour; //shader colour change when hit
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
+    }
     void Start()
     {
         //Get Components
         animator = GetComponent<Animator>();
         wings = gameObject.GetComponentInChildren<BoxCollider>();
         sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
+
 
         //Set Materials
         hitMat.SetFloat("Vector1_1F4E68D2", 0.1f);
@@ -42,6 +53,7 @@ public class Minion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //Ignore collision between wing and sword
         Physics.IgnoreCollision(wings, sword);
 
@@ -56,6 +68,11 @@ public class Minion : MonoBehaviour
             StartCoroutine(TakeDmg());
 
         }
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            agent.enabled = true;
+        }
+
     }
 
     public IEnumerator TakeDmg()

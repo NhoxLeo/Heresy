@@ -5,6 +5,8 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     public GameObject player;
+
+
     public float speed;
 
     public Rigidbody rb;
@@ -17,11 +19,13 @@ public class FireBall : MonoBehaviour
         player = GameObject.Find("PlayerBody");
         scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
         moving = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (moving == false)
         {
             StartCoroutine(FireBallMove());
@@ -33,11 +37,12 @@ public class FireBall : MonoBehaviour
             Vector3 direction = (player.transform.position - transform.position).normalized;
             rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
         }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject)
+        if (collision.gameObject.CompareTag("Player"))
         {
 
             Destroy(gameObject);

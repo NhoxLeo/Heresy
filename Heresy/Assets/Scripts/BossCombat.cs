@@ -22,8 +22,8 @@ public class BossCombat : MonoBehaviour
     //Colliders
     Collider leftHandCollider;
     Collider rightHandCollider;
-    Collider sword; 
-   
+    Collider sword;
+    
     //materials
     public Material flash;
     public Material skin;
@@ -76,7 +76,9 @@ public class BossCombat : MonoBehaviour
         Die();
         //Ignore the collision between the bosses attack colliders and the players sword collider
         Physics.IgnoreCollision(leftHandCollider, sword);
-        Physics.IgnoreCollision(rightHandCollider, sword);       
+        Physics.IgnoreCollision(rightHandCollider, sword);
+        
+        
 
     }
 
@@ -174,12 +176,14 @@ public class BossCombat : MonoBehaviour
     }
 
     //Events
-    public void SummonMinion()
-    {   //Spawn minions at these points
-        Instantiate(minion, e_spawnPoint1);
-        Instantiate(minion, e_spawnPoint2);        
+    public IEnumerator SummonMinion()
+    {   //Spawn minions at these points       
         Instantiate(minionParticle, e_spawnPoint1);
         Instantiate(minionParticle, e_spawnPoint2);
+        yield return new WaitForSeconds(3);
+        Instantiate(minion, e_spawnPoint1);
+        Instantiate(minion, e_spawnPoint2);        
+ 
     }    
     
     public void FireBall()

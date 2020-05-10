@@ -12148,7 +12148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017972170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 2.4, z: 19.38}
+  m_LocalPosition: {x: 2.3, y: 0, z: 19.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2135837277}
@@ -12641,7 +12641,7 @@ GameObject:
   - component: {fileID: 1665153712}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967263
@@ -12763,7 +12763,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Iudex Baal, Gatekeeper of ..... Penis
+  m_text: 'Iudex Baal, Gatekeeper of Hell
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12832,7 +12834,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1972503191}
-    characterCount: 37
+    characterCount: 31
     spriteCount: 0
     spaceCount: 5
     wordCount: 5
@@ -12881,7 +12883,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20094
+  m_Name: pb_Mesh17380
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13102,7 +13104,16 @@ PrefabInstance:
       propertyPath: e_spawnPoint2
       value: 
       objectReference: {fileID: 157249785}
+    - target: {fileID: 639829795, guid: dd20db98c67274a44ada7da3a43f1a6d, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2547711145133895418, guid: dd20db98c67274a44ada7da3a43f1a6d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3247527355552632638, guid: dd20db98c67274a44ada7da3a43f1a6d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -13166,6 +13177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6314154284930083037, guid: dd20db98c67274a44ada7da3a43f1a6d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6671798056179648443, guid: dd20db98c67274a44ada7da3a43f1a6d,
         type: 3}

@@ -10,6 +10,9 @@ TagManager:
   - Baal
   - LeftFist
   - RightFist
+  - Ground
+  - bossColl
+  - FireBall
   layers:
   - Default
   - TransparentFX

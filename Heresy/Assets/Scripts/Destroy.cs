@@ -7,6 +7,7 @@ public class Destroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.parent = null;
         Destroy(gameObject, 5);
     }
 

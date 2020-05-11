@@ -6,12 +6,14 @@ public class FireBall : MonoBehaviour
 {
     public GameObject player;
 
+    
 
     public float speed;
 
     public Rigidbody rb;
     private Vector3 scaleChange;
     public bool moving = false;
+    public GameObject explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class FireBall : MonoBehaviour
         player = GameObject.Find("PlayerBody");
         scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
         moving = false;
-
+        
     }
 
     // Update is called once per frame
@@ -45,7 +47,13 @@ public class FireBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            Destroy(gameObject);
+            gameObject.transform.localScale += scaleChange;
+          
+            Instantiate(explosion, gameObject.transform);
+           
+            Destroy(gameObject,0.1f);
+        
+
         }
     }
 
@@ -59,5 +67,6 @@ public class FireBall : MonoBehaviour
 
         moving = true;
 
-    }
+    }    
+
 }

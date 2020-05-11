@@ -232,6 +232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerController: {fileID: 0}
   speed: 20
   rb: {fileID: 0}
   moving: 0
+  explosion: {fileID: 8009681440925307970, guid: c0d920823c16c1342841e4385aff82e1,
+    type: 3}

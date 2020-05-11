@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     Vector3 movement;
-   
+    
     //Get Colliders for Attacking
     Collider blade;
     Collider foot;
@@ -167,10 +167,21 @@ public class PlayerController : MonoBehaviour
 
             StartCoroutine(RightFistDMG());
 
-        }
+        }        
+        
 
        
         
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FireBall"))
+        {
+
+            StartCoroutine(TakeDMGFireBall());
+
+        }
+
     }
 
     public void PlayerMovement()
@@ -489,6 +500,37 @@ public class PlayerController : MonoBehaviour
         //Wait for IFrames
         yield return new WaitForSeconds(IFrameT);
         
+        //Become vinsible
+        gameObject.GetComponent<Collider>().enabled = true;
+        rb.isKinematic = false;
+    }
+
+    public IEnumerator TakeDMGFireBall()
+    {
+        //LoseHP
+        HP -= 30;
+        PPVolumeControl.vgI += 0.3f;
+        Regen_T = 0;
+        Regen = false;
+
+        //Turn off sword collider
+        blade.enabled = false;
+
+        //play damage animation and stop moving
+        animator.SetTrigger("Hit");
+
+        //Flash
+        skinMaterial = flash;
+        Invoke("ResetHitColor", 0.05f);
+
+        //Make Invinsible
+        gameObject.GetComponent<Collider>().enabled = false;
+        rb.isKinematic = true;
+
+        //Instantiate particle effect 
+        //Wait for IFrames
+        yield return new WaitForSeconds(IFrameT);
+
         //Become vinsible
         gameObject.GetComponent<Collider>().enabled = true;
         rb.isKinematic = false;

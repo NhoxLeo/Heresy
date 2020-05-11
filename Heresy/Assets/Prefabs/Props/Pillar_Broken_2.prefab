@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4341504513722991045}
   - component: {fileID: 4691371909482937331}
   - component: {fileID: 1308173156354230026}
+  - component: {fileID: 4441661881450272948}
   m_Layer: 0
   m_Name: Pillar_Broken_2
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4441661881450272948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728253291940557782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 484.77048, y: 686.7048, z: 484.77057}
+  m_Center: {x: 0, y: 0, z: 0}

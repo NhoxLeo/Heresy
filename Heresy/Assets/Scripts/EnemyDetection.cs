@@ -7,12 +7,12 @@ public class EnemyDetection : MonoBehaviour
    
     public static List<Transform> enemies = new List<Transform>();
 
-    public Transform enemy;
+    
     public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        enemy = null;
+        
     }
 
     public static Transform GetClosestEnemy(List<Transform> enemies, Transform fromThis)
@@ -25,6 +25,7 @@ public class EnemyDetection : MonoBehaviour
 
         foreach (Transform potentialTarget in enemies)
         {
+            
             Vector3 directionToTarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
 

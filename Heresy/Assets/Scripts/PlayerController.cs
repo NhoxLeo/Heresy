@@ -58,8 +58,13 @@ public class PlayerController : MonoBehaviour
     public float attackrotspeed = 1f;  //Turn to face enemy speed
     public float IFrameT = 0.5f;       //Invinsibility time
 
-    
 
+    private void Awake()
+    {
+        enemy = null;
+        EnemyDetection.enemies.Clear();
+        Time.timeScale = 1;
+    }
     public void Start()
     {
         
@@ -81,7 +86,7 @@ public class PlayerController : MonoBehaviour
         speed = startRunSpeed;
 
         origMat = skinMaterial;
-
+        
     }
 
     public void FixedUpdate()
@@ -97,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-       
+        enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
         //Add self created gravity
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
         
@@ -241,8 +246,10 @@ public class PlayerController : MonoBehaviour
     
     public void Attack()
     {
-        enemy = EnemyDetection.GetClosestEnemy(EnemyDetection.enemies, transform);
-
+        
+        
+       
+        
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -607,7 +614,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Die()
     {
-        Debug.Log("Ded");
+        
         
         gameObject.GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
@@ -616,7 +623,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         //reset scene
         enemy = null;
+        
         SceneManager.LoadScene(0);
+
     }
 
 

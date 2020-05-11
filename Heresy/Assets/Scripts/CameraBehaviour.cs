@@ -16,6 +16,8 @@ public class CameraBehaviour : MonoBehaviour
     public float rotateSpeed = 5.0f;
 
     public bool rotate = false;
+    
+    public GameObject pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +27,23 @@ public class CameraBehaviour : MonoBehaviour
         offSet = transform.position - target.position;
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Continue()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+
 
     void FixedUpdate()
     {

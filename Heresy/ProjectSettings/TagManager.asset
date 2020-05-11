@@ -14,6 +14,7 @@ TagManager:
   - bossColl
   - FireBall
   - Pause
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - 
   - Enemy
   - 
-  - 
+  - Ring
   - 
   - 
   - 

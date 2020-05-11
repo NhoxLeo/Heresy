@@ -168,10 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe957baf473cb548bf01b3d0139adeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 2100000, guid: dafaae5bcc879ce4596472d01895c02a, type: 2}
+  animator: {fileID: 0}
+  agent: {fileID: 0}
   hitParticle: {fileID: 8599735452556132953, guid: 4afc5a5ef2ed16a49bfcd66062aa5ff4,
     type: 3}
-  animator: {fileID: 0}
-  wings: {fileID: 0}
   hitMat: {fileID: 2100000, guid: dafaae5bcc879ce4596472d01895c02a, type: 2}
   hitMat2: {fileID: 2100000, guid: 6c3faf4ea6404c541ad2118c0d7b7451, type: 2}
   e1_HP: 10

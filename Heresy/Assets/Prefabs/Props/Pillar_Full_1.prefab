@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 546946645299445387}
   - component: {fileID: 6101159752486732402}
   - component: {fileID: 4261749278506343626}
+  - component: {fileID: 6020599609929580921}
   m_Layer: 0
   m_Name: Pillar_Full_1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 495.5345, y: 1023.4722, z: 495.53442}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &6020599609929580921
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519014509172487854}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 247.76701, y: 511.73602, z: 247.76701}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

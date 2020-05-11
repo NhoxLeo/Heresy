@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6401267658090712013}
   - component: {fileID: 858312235586058036}
   - component: {fileID: 7222775492819646171}
+  - component: {fileID: 2400204212105723493}
   m_Layer: 0
   m_Name: Wall_Broken_1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 686.98035, y: 272.32462, z: 105.06}
   m_Center: {x: 0, y: 0, z: -56.3}
+--- !u!208 &2400204212105723493
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429189619213681640}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 343.49002, y: 136.162, z: 343.49002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

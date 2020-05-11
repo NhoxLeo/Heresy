@@ -55,6 +55,18 @@ public class FireBall : MonoBehaviour
         
 
         }
+        
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+
+            gameObject.transform.localScale += scaleChange;
+          
+            Instantiate(explosion, gameObject.transform);
+           
+            Destroy(gameObject,0.1f);
+        
+
+        }
     }
 
 

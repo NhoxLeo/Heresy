@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerMesh;
     public GameObject beam;
     public Transform enemy;
-
+    public GameObject deathScreen;
     //Phase system and cooldowns
     public bool PhaseIsCD = false;
     private bool phaseAttackNoInvis = false;
@@ -623,9 +623,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         //reset scene
         enemy = null;
-        
-        SceneManager.LoadScene(0);
 
+        deathScreen.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
 

@@ -313,9 +313,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   speed: 3
   runSpeed: 8
-  stepBackSpeed: 4
+  stepBackSpeed: 5
   rotSpeed: 10
-  attackRange: 6
+  attackRange: 5.5
   walkRange: 17.5
   jumpAttackRangeMin: 14.9
   jumpAttackRangeMax: 15
@@ -840,9 +840,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   speed: 3
   runSpeed: 8
-  stepBackSpeed: 4
+  stepBackSpeed: 5
   rotSpeed: 10
-  attackRange: 6
+  attackRange: 5.5
   walkRange: 17.5
   jumpAttackRangeMin: 14.9
   jumpAttackRangeMax: 15

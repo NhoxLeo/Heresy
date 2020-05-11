@@ -18,6 +18,7 @@ public class CameraBehaviour : MonoBehaviour
     public bool rotate = false;
     
     public GameObject pauseMenu;
+    public GameObject deathMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +37,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !deathMenu.activeInHierarchy)
         {
             Cursor.lockState = CursorLockMode.None;
             pauseMenu.SetActive(true);

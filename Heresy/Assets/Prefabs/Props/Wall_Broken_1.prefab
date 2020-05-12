@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 858312235586058036}
   - component: {fileID: 7222775492819646171}
   - component: {fileID: 2400204212105723493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall_Broken_1
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -108,5 +108,5 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -55.01}
   m_TimeToStationary: 0.5

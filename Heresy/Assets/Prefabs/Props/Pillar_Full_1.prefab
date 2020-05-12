@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6101159752486732402}
   - component: {fileID: 4261749278506343626}
   - component: {fileID: 6020599609929580921}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pillar_Full_1
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 247.76701, y: 511.73602, z: 247.76701}
+  m_Extents: {x: 325.1, y: 511.73602, z: 325.1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

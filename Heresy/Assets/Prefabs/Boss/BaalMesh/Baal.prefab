@@ -1326,7 +1326,7 @@ MonoBehaviour:
   e_spawnPoint1: {fileID: 0}
   e_spawnPoint2: {fileID: 0}
   fireBallSpawn: {fileID: 6379013521733161515}
-  maxHealth: 75
+  maxHealth: 50
   currentHealth: 100
   attackRange: 3
   hitSlow_T: 0.075

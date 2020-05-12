@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1308173156354230026}
   - component: {fileID: 4441661881450272948}
   - component: {fileID: 606752458479373926}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pillar_Broken_2
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 242.38501, y: 343.35202, z: 242.38501}
+  m_Extents: {x: 302.1, y: 343.35202, z: 302.1}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1

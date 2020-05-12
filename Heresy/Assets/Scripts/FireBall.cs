@@ -9,7 +9,7 @@ public class FireBall : MonoBehaviour
     
 
     public float speed;
-
+    public GameObject pauseMenu;
     public Rigidbody rb;
     private Vector3 scaleChange;
     public bool moving = false;
@@ -56,9 +56,9 @@ public class FireBall : MonoBehaviour
 
         }
         
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.layer == 9)
         {
-
+            Debug.Log("Hit");
             gameObject.transform.localScale += scaleChange;
           
             Instantiate(explosion, gameObject.transform);
@@ -74,11 +74,11 @@ public class FireBall : MonoBehaviour
     {
 
         gameObject.transform.localScale += scaleChange;
-        
+
         yield return new WaitForSeconds(1);
 
         moving = true;
 
-    }    
+    }
 
 }

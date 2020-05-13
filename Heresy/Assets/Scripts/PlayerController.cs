@@ -522,7 +522,8 @@ public class PlayerController : MonoBehaviour
 
         //Turn off sword collider
         blade.enabled = false;
-
+        foot.enabled = false;
+        hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
 
@@ -553,7 +554,8 @@ public class PlayerController : MonoBehaviour
 
         //Turn off sword collider
         blade.enabled = false;
-
+        foot.enabled = false;
+        hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
         
@@ -584,7 +586,8 @@ public class PlayerController : MonoBehaviour
 
         //Turn off sword collider
         blade.enabled = false;
-
+        foot.enabled = false;
+        hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
         

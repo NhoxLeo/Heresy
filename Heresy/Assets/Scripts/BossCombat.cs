@@ -17,13 +17,13 @@ public class BossCombat : MonoBehaviour
     public GameObject minion;
     public GameObject minionParticle;
     public GameObject blood;
-    public GameObject fireBall; 
-
+    public GameObject fireBall;
+    public GameObject baalBlowUp;
     //Colliders
     Collider leftHandCollider;
     Collider rightHandCollider;
     Collider sword;
-    
+    Collider baal;
     //materials
     public Material flash;
     public Material skin;
@@ -56,7 +56,7 @@ public class BossCombat : MonoBehaviour
         leftHandCollider = GameObject.Find("LeftHandCollider").GetComponent<Collider>();
         rightHandCollider = GameObject.Find("RightHandCollider").GetComponent<Collider>();
         sword = GameObject.Find("Blade").gameObject.GetComponent<Collider>();
-        
+        baal = GetComponent<Collider>();
         //Set boss health to max
         currentHealth = maxHealth;
         bossHealthBar.SetMaxHealth(maxHealth);
@@ -73,7 +73,7 @@ public class BossCombat : MonoBehaviour
 
         StartCoroutine(Fireball());
         //boss dies
-        Die();
+        StartCoroutine(Die());
         //Ignore the collision between the bosses attack colliders and the players sword collider
         Physics.IgnoreCollision(leftHandCollider, sword);
         Physics.IgnoreCollision(rightHandCollider, sword);
@@ -165,13 +165,18 @@ public class BossCombat : MonoBehaviour
     }
 
     //Boss Dies
-    public void Die()
+    public IEnumerator Die()
     {
         //If health is/ is below 0
         if (currentHealth <= 0)
-        {
-            //Die
-            Debug.Log("Enemy died!");
+        {     
+            
+            agent.isStopped = true;
+            animator.SetBool("IsDead", true);
+            baal.enabled = false;
+            yield return new WaitForSeconds(4);
+            Instantiate(baalBlowUp, gameObject.transform);
+            gameObject.SetActive(false);
         }
     }
 

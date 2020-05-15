@@ -27,10 +27,12 @@ public class CameraBehaviour : MonoBehaviour
 
         offSet = transform.position - target.position;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     public void Continue()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
@@ -40,6 +42,7 @@ public class CameraBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !deathMenu.activeInHierarchy)
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
         }

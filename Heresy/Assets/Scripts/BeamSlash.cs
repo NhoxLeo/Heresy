@@ -18,4 +18,16 @@ public class BeamSlash : MonoBehaviour
 
         Destroy(gameObject, 5);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+                if(other.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

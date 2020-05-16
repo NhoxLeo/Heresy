@@ -9,6 +9,7 @@ public class BossCombat : MonoBehaviour
     //components
     public BossHealthBar bossHealthBar;
     public Animator animator;
+    public Animator fadeOut;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer baalSMR;
    
@@ -19,6 +20,8 @@ public class BossCombat : MonoBehaviour
     public GameObject blood;
     public GameObject fireBall;
     public GameObject baalBlowUp;
+    public GameObject baalBlowUp2; 
+    public GameObject baalIntro;
     //Colliders
     Collider leftHandCollider;
     Collider rightHandCollider;
@@ -47,6 +50,7 @@ public class BossCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instantiate(baalIntro, gameObject.transform);
         //Get and set boss, boss mesh and boss NavMeshAgent
         baalSMR = GameObject.Find("Baal").GetComponentInChildren<SkinnedMeshRenderer>();
         agent = GetComponent<NavMeshAgent>();
@@ -60,7 +64,7 @@ public class BossCombat : MonoBehaviour
         //Set boss health to max
         currentHealth = maxHealth;
         bossHealthBar.SetMaxHealth(maxHealth);
-        
+
         
     }
 
@@ -176,7 +180,10 @@ public class BossCombat : MonoBehaviour
             baal.enabled = false;
             yield return new WaitForSeconds(4);
             Instantiate(baalBlowUp, gameObject.transform);
+            Instantiate(baalBlowUp2, gameObject.transform);
+            yield return new WaitForSeconds(0.1f);
             gameObject.SetActive(false);
+            fadeOut.SetBool("Fade", true);
         }
     }
 

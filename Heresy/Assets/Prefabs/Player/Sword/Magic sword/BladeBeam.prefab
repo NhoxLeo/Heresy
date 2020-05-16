@@ -4858,6 +4858,7 @@ GameObject:
   - component: {fileID: 4035052477930786502}
   - component: {fileID: 395033546194108221}
   - component: {fileID: 5833636990817329665}
+  - component: {fileID: 6052820371758637864}
   m_Layer: 0
   m_Name: Beam
   m_TagString: Sword
@@ -4980,6 +4981,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+--- !u!54 &6052820371758637864
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638268352508442517}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2481522796283526240
 PrefabInstance:
   m_ObjectHideFlags: 0

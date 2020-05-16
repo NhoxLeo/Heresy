@@ -1321,6 +1321,7 @@ MonoBehaviour:
   blood: {fileID: 1138434891510307166, guid: d84413c246d6465468d497a8152c2d25, type: 3}
   fireBall: {fileID: 7235521310285188036, guid: cd9e9b041e1d7ac4380da96a4de7793d,
     type: 3}
+  baalBlowUp: {fileID: 0}
   flash: {fileID: 2100000, guid: 0e7220efe7c59644895dec11d714a2cb, type: 2}
   skin: {fileID: 2100000, guid: 1e121e2f0b859fe41b7332fe208cada7, type: 2}
   e_spawnPoint1: {fileID: 0}

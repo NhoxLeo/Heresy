@@ -12,14 +12,16 @@ public class PPVolumeControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Gets Volume
         v = GetComponent<Volume>();
+        //Gets Vignette
         v.profile.TryGet(out vg);
-
-        vg.intensity.value = vgI;
+        
     }
 
     public void Update()
     {
+        //Set vignette to VGI
         vg.intensity.value = vgI;
     }
 

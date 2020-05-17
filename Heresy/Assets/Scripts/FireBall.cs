@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class FireBall : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class FireBall : MonoBehaviour
         {
 
             gameObject.transform.localScale += scaleChange;
-          
+            CameraShaker.Instance.ShakeOnce(5f, 0.1f, 0.5f, 0.5f);
             Instantiate(explosion, gameObject.transform);
            
             Destroy(gameObject,0.1f);

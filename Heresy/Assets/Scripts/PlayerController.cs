@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using EZCameraShake;
 public class PlayerController : MonoBehaviour
 {
 
@@ -10,6 +11,11 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     Vector3 movement;
+    public AudioSource hit;
+    public AudioSource attacking;
+    public AudioSource specialAttack;
+    public AudioSource hit2;
+    
     
     //Get Colliders for Attacking
     Collider blade;
@@ -329,7 +335,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse1) && animator.GetCurrentAnimatorStateInfo(0).IsName("Moving") || Input.GetKeyDown(KeyCode.Mouse1) && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
                 animator.SetBool("Power Up", true);
-
+                
             }
 
         }
@@ -545,20 +551,20 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator LeftFistDMG()
     {
-
+        CameraShaker.Instance.ShakeOnce(5f, 0.5f, 0.2f, 0.2f);
         //LoseHP
         HP -= BossCombat.leftFistDamage;
         PPVolumeControl.vgI += 0.20f;
         Regen_T = 0;
         Regen = false;
-
+        hit.Play();
+        hit2.Play();
         //Turn off sword collider
         blade.enabled = false;
         foot.enabled = false;
         hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
-        
         //Flash
         skinMaterial = flash;
         Invoke("ResetHitColor", 0.05f);
@@ -583,14 +589,14 @@ public class PlayerController : MonoBehaviour
         PPVolumeControl.vgI += 0.10f;
         Regen_T = 0;
         Regen = false;
-
+        hit.Play();
+        hit2.Play();
         //Turn off sword collider
         blade.enabled = false;
         foot.enabled = false;
         hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
-        
         //Flash
         skinMaterial = flash;
         Invoke("ResetHitColor", 0.05f);
@@ -629,6 +635,14 @@ public class PlayerController : MonoBehaviour
 
         deathScreen.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+    }
+    public void SpecialNoise()
+    {
+        specialAttack.Play();
+    }
+    public void AttackSound()
+    {
+        attacking.Play();
     }
 
 

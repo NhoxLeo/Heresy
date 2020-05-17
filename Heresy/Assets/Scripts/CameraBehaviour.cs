@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CameraBehaviour : MonoBehaviour
 {
 
@@ -22,7 +23,7 @@ public class CameraBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         target = GameObject.Find("PlayerTarget").transform;
 
         offSet = transform.position - target.position;

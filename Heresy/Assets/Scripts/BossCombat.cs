@@ -12,7 +12,11 @@ public class BossCombat : MonoBehaviour
     public Animator fadeOut;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer baalSMR;
-   
+    public AudioSource hit;
+    public AudioSource summonMinion;
+    public AudioSource bigHit;
+    
+
     //GameObjects
     public GameObject player;
     public GameObject minion;
@@ -112,7 +116,7 @@ public class BossCombat : MonoBehaviour
         //Turn off attack collider
         leftHandCollider.enabled = false;
         rightHandCollider.enabled = false;
-        
+        hit.Play();
         //wait for slow down time 
         yield return new WaitForSeconds(hitSlow_T);
         
@@ -189,9 +193,11 @@ public class BossCombat : MonoBehaviour
 
     //Events
     public IEnumerator SummonMinion()
-    {   //Spawn minions at these points       
+    {   //Spawn minions at these points  
+        summonMinion.Play();
         Instantiate(minionParticle, e_spawnPoint1);
         Instantiate(minionParticle, e_spawnPoint2);
+        
         yield return new WaitForSeconds(3);
         Instantiate(minion, e_spawnPoint1);
         Instantiate(minion, e_spawnPoint2);        
@@ -251,7 +257,16 @@ public class BossCombat : MonoBehaviour
     {
         animator.SetBool("FireBall", false);
     }
-
+    
+    public void SummonSound()
+    {
+        summonMinion.Play();
+    }   
+    
+    public void BigHitSound()
+    {
+        bigHit.Play();
+    }      
 
 
 }

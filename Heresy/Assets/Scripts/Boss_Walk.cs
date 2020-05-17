@@ -10,7 +10,7 @@ public class Boss_Walk : StateMachineBehaviour
     public GameObject player;
     public NavMeshAgent agent;
     public Rigidbody rb;
-
+    
     //Boss Stats
     public float speed; //Normal move Speed
     public float runSpeed; //Run Speed
@@ -24,6 +24,8 @@ public class Boss_Walk : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
+
         //Get and Set Baal in Scene
         baal = GameObject.Find("Baal");
         
@@ -44,6 +46,7 @@ public class Boss_Walk : StateMachineBehaviour
         //if the boss Further away from player than 5 and is not roaring
         if (Vector3.Distance(player.transform.position, agent.transform.position) >= 5 && !animator.GetBool("Roar"))
         {
+            
             //boss navmesh set active
             agent.enabled = true;
             //boss moves towards player
@@ -125,7 +128,7 @@ public class Boss_Walk : StateMachineBehaviour
     {
         //when this script stops playing no attacks
         animator.SetInteger("Attack", 0);
-
+        
     }
 
 

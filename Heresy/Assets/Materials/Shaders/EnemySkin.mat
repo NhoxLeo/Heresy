@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_3D6E13D4: 1
+    - Vector1_3D6E13D4: 0
     - Vector1_734CCDCC: 1
     - Vector1_99401D00: 1
     - Vector1_BF8173F2: 0

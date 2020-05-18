@@ -7,7 +7,7 @@ public class FireBall : MonoBehaviour
 {
     public GameObject player;
 
-    
+   
 
     public float speed;
     public GameObject pauseMenu;
@@ -15,12 +15,14 @@ public class FireBall : MonoBehaviour
     private Vector3 scaleChange;
     public bool moving = false;
     public GameObject explosion;
+    public GameObject explodeSound;
+    public AudioSource summonFireBall;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("PlayerBody");
-        scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
+        scaleChange = new Vector3(0.02f, 0.02f, 0.02f);
         moving = false;
         
     }
@@ -31,7 +33,10 @@ public class FireBall : MonoBehaviour
         
         if (moving == false)
         {
+
             StartCoroutine(FireBallMove());
+            summonFireBall.Play();
+            
         }
 
         if (moving == true)
@@ -48,10 +53,11 @@ public class FireBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
+            
             gameObject.transform.localScale += scaleChange;
             CameraShaker.Instance.ShakeOnce(5f, 0.1f, 0.5f, 0.5f);
             Instantiate(explosion, gameObject.transform);
-           
+            Instantiate(explodeSound, gameObject.transform);
             Destroy(gameObject,0.1f);
         
 
@@ -59,10 +65,11 @@ public class FireBall : MonoBehaviour
         
         if (collision.gameObject.layer == 9)
         {
+            
             Debug.Log("Hit");
             gameObject.transform.localScale += scaleChange;
-          
             Instantiate(explosion, gameObject.transform);
+            Instantiate(explodeSound, gameObject.transform);
            
             Destroy(gameObject,0.1f);
         

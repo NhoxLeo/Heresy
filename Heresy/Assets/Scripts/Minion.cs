@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Minion : MonoBehaviour
 {
-    
+    public AudioSource hit;
     //Get components
     Collider wings;
     Collider sword;
@@ -86,7 +86,7 @@ public class Minion : MonoBehaviour
         
         //Start animation
         animator.SetTrigger("Enemy_Hit");
-       
+        hit.Play();
         
          hitMat.SetFloat("Vector1_1F4E68D2", hitColour += 0.2f);
          hitMat2.SetFloat("Vector1_3D6E13D4", 50f);

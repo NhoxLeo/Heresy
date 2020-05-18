@@ -16,6 +16,9 @@ public class BossCombat : MonoBehaviour
     public AudioSource summonMinion;
     public AudioSource bigHit;
     public AudioSource flameWoosh;
+    public AudioSource fireBallSummon;
+    public AudioSource jumpAttackSound;
+    public AudioSource deathSound;
     
 
     //GameObjects
@@ -27,6 +30,7 @@ public class BossCombat : MonoBehaviour
     public GameObject baalBlowUp;
     public GameObject baalBlowUp2; 
     public GameObject baalIntro;
+
     //Colliders
     Collider leftHandCollider;
     Collider rightHandCollider;
@@ -163,7 +167,7 @@ public class BossCombat : MonoBehaviour
             //boss stops moving
             //Boss roar animation
             animator.SetBool("FireBall",true);
-           
+            fireBallSummon.Play();
 
             //Wait
             yield return new WaitForSeconds(25); 
@@ -178,11 +182,11 @@ public class BossCombat : MonoBehaviour
     {
         //If health is/ is below 0
         if (currentHealth <= 0)
-        {     
-            
+        {
             agent.isStopped = true;
             animator.SetBool("IsDead", true);
             baal.enabled = false;
+            deathSound.Play();
             yield return new WaitForSeconds(4);
             Instantiate(baalBlowUp, gameObject.transform);
             Instantiate(baalBlowUp2, gameObject.transform);
@@ -274,6 +278,10 @@ public class BossCombat : MonoBehaviour
     public void SmallHitSound()
     {
         flameWoosh.Play();
+    }
+    public void jumpAttackSFX()
+    {
+        jumpAttackSound.Play();
     }
 
 

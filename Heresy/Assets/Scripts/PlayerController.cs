@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     Vector3 movement;
+    public AudioSource dying;
     public AudioSource hit;
     public AudioSource attacking;
     public AudioSource specialAttack;
     public AudioSource hit2;
+    public AudioSource hitFireBall;
     
     
     //Get Colliders for Attacking
@@ -112,16 +114,18 @@ public class PlayerController : MonoBehaviour
         //Add self created gravity
         rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
         
+        
+
+            
+            StartCoroutine(Die());
+        
         Sprint();
         Attack();
         PhaseAttack();
         PhaseDash();
         Health();
         PhaseCD();
-        if (HP <= 0)
-        {
-            StartCoroutine(Die());
-        }
+
     }
 
     public void Health()
@@ -500,7 +504,7 @@ public class PlayerController : MonoBehaviour
         
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
-        
+        hit.Play();
         //Flash
         skinMaterial = flash;
         Invoke("ResetHitColor", 0.05f);
@@ -525,14 +529,14 @@ public class PlayerController : MonoBehaviour
         PPVolumeControl.vgI += 0.3f;
         Regen_T = 0;
         Regen = false;
-
+        CameraShaker.Instance.ShakeOnce(5f, 0.5f, 0.2f, 0.2f);
         //Turn off sword collider
         blade.enabled = false;
         foot.enabled = false;
         hand.enabled = false;
         //play damage animation and stop moving
         animator.SetTrigger("Hit");
-
+        hitFireBall.Play();
         //Flash
         skinMaterial = flash;
         Invoke("ResetHitColor", 0.05f);
@@ -623,18 +627,21 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Die()
     {
-        
-        
-        gameObject.GetComponent<Collider>().enabled = false;
-        rb.isKinematic = true;
-        //Play Death animation
-        animator.SetBool("Death", true);
-        yield return new WaitForSeconds(5);
-        //reset scene
-        enemy = null;
+        if (HP <= 0)
+        {
+            dying.Play();
+            gameObject.GetComponent<Collider>().enabled = false;
+            rb.isKinematic = true;
+            //Play Death animation
+            animator.SetBool("Death", true);
 
-        deathScreen.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
+            yield return new WaitForSeconds(3);
+            //reset scene
+            enemy = null;
+
+            deathScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     public void SpecialNoise()
     {

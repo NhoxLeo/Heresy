@@ -5,6 +5,8 @@ using UnityEngine;
 public class BeamSlash : MonoBehaviour
 {
     public float speed;
+
+    public GameObject particle;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,9 @@ public class BeamSlash : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-                if(other.gameObject.layer == 9)
+        if(other.gameObject.layer == 9)
         {
+            Instantiate(particle, gameObject.transform);
             Destroy(gameObject);
         }
     }

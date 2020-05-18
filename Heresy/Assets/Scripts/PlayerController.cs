@@ -629,18 +629,19 @@ public class PlayerController : MonoBehaviour
     {
         if (HP <= 0)
         {
-            dying.Play();
             gameObject.GetComponent<Collider>().enabled = false;
             rb.isKinematic = true;
             //Play Death animation
             animator.SetBool("Death", true);
+            
 
             yield return new WaitForSeconds(3);
             //reset scene
             enemy = null;
 
-            deathScreen.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            deathScreen.SetActive(true);
         }
     }
     public void SpecialNoise()
@@ -652,6 +653,10 @@ public class PlayerController : MonoBehaviour
         attacking.Play();
     }
 
+    public void DeathSound()
+    {
+        dying.Play();
+    }
 
 }
 

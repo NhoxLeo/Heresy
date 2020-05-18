@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using EZCameraShake;
 
 public class BossCombat : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class BossCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CameraShaker.Instance.ShakeOnce(1, 10, 1, 1);
         Instantiate(baalIntro, gameObject.transform);
         //Get and set boss, boss mesh and boss NavMeshAgent
         baalSMR = GameObject.Find("Baal").GetComponentInChildren<SkinnedMeshRenderer>();
@@ -186,10 +188,12 @@ public class BossCombat : MonoBehaviour
             agent.isStopped = true;
             animator.SetBool("IsDead", true);
             baal.enabled = false;
-            deathSound.Play();
+            
             yield return new WaitForSeconds(4);
+            
             Instantiate(baalBlowUp, gameObject.transform);
             Instantiate(baalBlowUp2, gameObject.transform);
+            CameraShaker.Instance.ShakeOnce(2,10,2,2);
             yield return new WaitForSeconds(0.1f);
             gameObject.SetActive(false);
             fadeOut.SetBool("Fade", true);
@@ -283,7 +287,9 @@ public class BossCombat : MonoBehaviour
     {
         jumpAttackSound.Play();
     }
-
-
+    public void DieSound()
+    {
+        deathSound.Play();
+    }
 }
 

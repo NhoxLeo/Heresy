@@ -14992,6 +14992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   howToPlayMenu: {fileID: 0}
+  mainMenu: {fileID: 0}
 --- !u!4 &1403541890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e9666cb54f0dea14aa443ce046e215db,
@@ -17326,7 +17327,7 @@ PrefabInstance:
     - target: {fileID: 6573699641332331800, guid: dd20db98c67274a44ada7da3a43f1a6d,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.705
+      value: 0.743
       objectReference: {fileID: 0}
     - target: {fileID: 6573699641332331800, guid: dd20db98c67274a44ada7da3a43f1a6d,
         type: 3}

@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hit: {fileID: 354513548989371620}
+  deathSound: {fileID: 3903747643434389586, guid: 6d42c755f196654488cbeddc056eea50,
+    type: 3}
   animator: {fileID: 0}
   agent: {fileID: 0}
   hitParticle: {fileID: 8599735452556132953, guid: 4afc5a5ef2ed16a49bfcd66062aa5ff4,
@@ -191,7 +193,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 93d9a92d431f88945a3b18f6ffdd263b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1.4
+  m_Pitch: 1.3
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -234,7 +236,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.696
+      value: 0.718
       inSlope: 0
       outSlope: 0
       tangentMode: 0

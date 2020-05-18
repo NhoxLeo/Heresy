@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Minion : MonoBehaviour
 {
     public AudioSource hit;
+
+    public GameObject deathSound;
     //Get components
     Collider wings;
     Collider sword;
@@ -54,11 +56,11 @@ public class Minion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Death();
         //Ignore collision between wing and sword
         Physics.IgnoreCollision(wings, sword);
 
-        Death();
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -126,10 +128,15 @@ public class Minion : MonoBehaviour
     {
         if (e1_HP <= 0)
         {
+            Instantiate(deathSound, gameObject.transform);
+            deathSound.transform.parent = null;
+
             hitMat2.SetFloat("Vector1_3D6E13D4", 1f);
             Time.timeScale = 1f;
+            
+
             gameObject.SetActive(false);
-            //Destroy(gameObject);
+           // Destroy(gameObject);
         }
     }
 }

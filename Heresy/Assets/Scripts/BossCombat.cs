@@ -15,6 +15,7 @@ public class BossCombat : MonoBehaviour
     public AudioSource hit;
     public AudioSource summonMinion;
     public AudioSource bigHit;
+    public AudioSource flameWoosh;
     
 
     //GameObjects
@@ -231,7 +232,7 @@ public class BossCombat : MonoBehaviour
     {
         //Warp Boss
         agent.Warp(player.transform.position - player.transform.forward * -4);
-
+        flameWoosh.Play();
     }
     public void LHCollOn()
     {
@@ -260,13 +261,20 @@ public class BossCombat : MonoBehaviour
     
     public void SummonSound()
     {
+        summonMinion.pitch = 1.2f;
         summonMinion.Play();
     }   
     
     public void BigHitSound()
     {
         bigHit.Play();
-    }      
+        flameWoosh.Play();
+    } 
+    
+    public void SmallHitSound()
+    {
+        flameWoosh.Play();
+    }
 
 
 }

@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LiberationSans SDF Material
   m_Shader: {fileID: 4800000, guid: dd89cf5b9246416f84610a006f916af7, type: 3}
-  m_ShaderKeywords: BEVEL_ON OUTLINE_ON
+  m_ShaderKeywords: BEVEL_ON GLOW_ON OUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -53,10 +53,10 @@ Material:
     - _FaceDilate: 0.36
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.05
-    - _GlowOffset: 0
-    - _GlowOuter: 0.058
-    - _GlowPower: 0.395
+    - _GlowInner: 0.17
+    - _GlowOffset: 0.28
+    - _GlowOuter: 0.38
+    - _GlowPower: 0.45
     - _GradientScale: 10
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
@@ -64,10 +64,10 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.395
+    - _OutlineWidth: 0.64
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 9.28
-    - _ScaleRatioA: 0.9
+    - _ScaleRatioA: 0.75789475
     - _ScaleRatioB: 0.40725
     - _ScaleRatioC: 0.13575
     - _ScaleX: 1
@@ -94,13 +94,13 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 1, g: 0, b: 0.01905775, a: 0.5}
+    - _GlowColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.4745098}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

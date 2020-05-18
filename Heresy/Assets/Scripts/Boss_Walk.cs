@@ -10,7 +10,9 @@ public class Boss_Walk : StateMachineBehaviour
     public GameObject player;
     public NavMeshAgent agent;
     public Rigidbody rb;
-    
+    public AudioSource runningSFX;
+   // public AudioClip run;
+   // public AudioClip walk;
     //Boss Stats
     public float speed; //Normal move Speed
     public float runSpeed; //Run Speed
@@ -35,7 +37,7 @@ public class Boss_Walk : StateMachineBehaviour
         //Get and set Components 
         agent = animator.GetComponent<NavMeshAgent>();
         rb = animator.GetComponent<Rigidbody>();
-        
+        runningSFX = animator.GetComponent<AudioSource>();
         //Set boss NavMesh Pro active
         agent.enabled = true;
     }
@@ -59,12 +61,16 @@ public class Boss_Walk : StateMachineBehaviour
             {
                 //Run
                 animator.SetBool("Running", true);
+                //runningSFX.clip = run;
+                //runningSFX.Play();
                 agent.speed = runSpeed;
             }
             else
             {
                 //Walk
                 animator.SetBool("Running", false);
+                //runningSFX.clip = walk;
+                //runningSFX.Play();
                 agent.speed = speed;
                 
             }
@@ -128,7 +134,7 @@ public class Boss_Walk : StateMachineBehaviour
     {
         //when this script stops playing no attacks
         animator.SetInteger("Attack", 0);
-        
+        runningSFX.Stop();
     }
 
 

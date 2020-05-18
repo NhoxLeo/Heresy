@@ -359,6 +359,7 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 0}
   rb: {fileID: 0}
+  runningSFX: {fileID: 0}
   speed: 3
   runSpeed: 8
   stepBackSpeed: 5
@@ -779,7 +780,7 @@ AnimatorStateMachine:
     m_Position: {x: 250, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8358099723859630892}
-    m_Position: {x: 220, y: 340, z: 0}
+    m_Position: {x: 210, y: 340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3561374115885761697}
     m_Position: {x: 610, y: 270, z: 0}
@@ -788,10 +789,10 @@ AnimatorStateMachine:
     m_Position: {x: 480, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4850487918608591384}
-    m_Position: {x: 100, y: 270, z: 0}
+    m_Position: {x: 90, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7008566858450415380}
-    m_Position: {x: 230, y: 200, z: 0}
+    m_Position: {x: 220, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6725942070983267209}
     m_Position: {x: 850, y: 400, z: 0}
@@ -950,6 +951,7 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 0}
   rb: {fileID: 0}
+  runningSFX: {fileID: 0}
   speed: 3
   runSpeed: 8
   stepBackSpeed: 5

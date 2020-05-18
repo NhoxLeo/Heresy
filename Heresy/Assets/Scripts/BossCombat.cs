@@ -20,7 +20,9 @@ public class BossCombat : MonoBehaviour
     public AudioSource fireBallSummon;
     public AudioSource jumpAttackSound;
     public AudioSource deathSound;
-    
+    public AudioSource runningSound;
+    public AudioClip run;
+    public AudioClip walk;
 
     //GameObjects
     public GameObject player;
@@ -291,5 +293,16 @@ public class BossCombat : MonoBehaviour
     {
         deathSound.Play();
     }
+    public void RunningSFX()
+    {
+        runningSound.clip = run;
+        runningSound.Play();
+    }
+    public void WalkSFX()
+    {
+        runningSound.clip = walk;
+        runningSound.Play();
+    }
+    
 }
 

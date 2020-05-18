@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Menus : MonoBehaviour
 {
     public GameObject howToPlayMenu;
+    public GameObject mainMenu;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class Menus : MonoBehaviour
     public void HowToPlay()
     {
         howToPlayMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }  
 
     public void Quit()
@@ -35,5 +37,6 @@ public class Menus : MonoBehaviour
     public void HowToPlayBack()
     {
         howToPlayMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
